@@ -5,7 +5,15 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"toddish/verify": "3.*",
+        "guzzlehttp/guzzle": "~4.0",
+		"aws/aws-sdk-php": "2.*",
+		"aws/aws-sdk-php-laravel": "dev-master",
+        "raveren/kint": "dev-master",
+        "barryvdh/laravel-cors": "0.2.x",
+        "doctrine/collections": "1.2"
+
 	},
 	"autoload": {
 		"classmap": [
