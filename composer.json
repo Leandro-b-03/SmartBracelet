@@ -6,7 +6,7 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"toddish/verify": "3.*",
+		"zizaco/entrust": "1.2.*@dev",
         "guzzlehttp/guzzle": "~4.0",
 		"aws/aws-sdk-php": "2.*",
 		"aws/aws-sdk-php-laravel": "dev-master",

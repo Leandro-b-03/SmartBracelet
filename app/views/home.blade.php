@@ -4,6 +4,9 @@
 	Smart Bracelet | Dashboard
 @stop
 
+@section('style')
+@stop
+
 @section('name')
 <h3><i class="fa fa-dashboard"></i>&nbsp; Dashboard</h3>
 @stop
@@ -25,7 +28,7 @@
                             Braceletes em uso
                         </div>
                     </div>
-                    
+
                     <div class="span4 pie-chart">
                         <div id="easy-pie-chart-2" data-percent="42">
                             42%
@@ -83,4 +86,29 @@
 @stop
 
 @section('scripts')
+        @if (Session::has('flash_error'))
+        <script type="text/javascript">
+            $(function(){
+                new PNotify({
+                    title: 'Erro',
+                    text: '{{ Session::get('flash_error') }}',
+                    type: 'error',
+                    styling: 'fontawesome'
+                });
+            });
+        </script>
+        @endif
+
+        @if (Session::has('flash_notice'))
+        <script type="text/javascript">
+            $(function(){
+                new PNotify({
+                    title: 'Sucesso',
+                    text: '{{ Session::get('flash_notice') }}',
+                    type: 'success',
+                    styling: 'fontawesome'
+                });
+            });
+        </script>
+        @endif
 @stop

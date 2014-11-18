@@ -12,15 +12,15 @@
     </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    
+
     {{ HTML::script('library/javascripts/1.3.0/adminflare-demo-init.min.js'); }}
 
     {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700'); }}
     {{ HTML::style('library/css/1.3.0/black-blue/bootstrap.min.css'); }}
     {{ HTML::style('library/css/1.3.0/black-blue/adminflare.min.css'); }}
-    
+    {{ HTML::style("library/css/pnotify.custom.min.css") }}
+
     {{ HTML::script('library/javascripts/1.3.0/modernizr-jquery.min.js'); }}
-    {{ HTML::script('library/javascripts/1.3.0/adminflare-demo.min.js'); }}
     {{ HTML::script('library/javascripts/1.3.0/bootstrap.min.js'); }}
     {{ HTML::script('library/javascripts/1.3.0/adminflare.min.js'); }}
 
@@ -61,7 +61,7 @@
         /* ======================================================================= */
         /* Supported Browsers */
         #supported-browsers header { color: #666; display: block; font-size: 14px; }
-            
+
         #supported-browsers header strong { font-size: 18px; }
 
         #supported-browsers .span10 { margin-bottom: -15px; text-align: center; }
@@ -78,7 +78,7 @@
         #supported-browsers .span10 img { height: 40px; width: 40px; }
 
         #supported-browsers .span10 span { line-height: 40px; font-size: 14px; font-weight: 600; }
-        
+
         @media (max-width: 767px) {
             #supported-browsers header { text-align: center; margin-bottom: 20px; }
         }
@@ -87,7 +87,9 @@
         /* Status panel */
         .status-example { line-height: 0; position:relative; top: 22px }
     </style>
-    
+    @section('style')
+    @show
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('a[rel=tooltip]').tooltip();
@@ -253,7 +255,7 @@
         </div>
     </header>
     <!-- / Main navigation bar -->
-    
+
     <!-- Left navigation panel
         ================================================== -->
     <nav id="left-panel">
@@ -274,7 +276,7 @@
                 <li class="{{ Request::is('/') ? 'active' : '' }}">
                     <a href="tables.html"><span class="icon-table"></span>Tables</a>
                 </li>
-                
+
                 <li class="{{ Request::is('/') ? 'active' : '' }}">
                     <a href="components.html"><span class="icon-inbox"></span>Components</a>
                 </li>
@@ -336,7 +338,7 @@
         <div class="icon-caret-up"></div>
     </nav>
     <!-- / Left navigation panel -->
-    
+
     <!-- Page content
         ================================================== -->
     <section class="container">
@@ -350,6 +352,9 @@
             </a>
         </footer>
         <!-- / Page footer -->
+        {{ HTML::script("library/javascripts/pnotify.custom.min.js") }}
+        @section('scripts')
+        @show
     </section>
 </body>
 </html>

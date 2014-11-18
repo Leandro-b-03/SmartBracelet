@@ -1,18 +1,23 @@
 <?php
 
 use Illuminate\Auth\Reminders\RemindableInterface;
-
 use Illuminate\Auth\UserInterface;
-use Toddish\Verify\Models\User as VerifyUser;
+use Zizaco\Entrust\HasRole;
 
-class User extends VerifyUser implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface {
+	/**
+	 * Add this trait to your user model
+	 *
+	 * @var roles
+	 */
+	use HasRole;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user';
+	protected $table = 'users';
 
 	/**
 	 * The attributes excluded from the model's JSON form.

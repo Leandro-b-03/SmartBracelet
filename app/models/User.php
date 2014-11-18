@@ -1,18 +1,23 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
-use Toddish\Verify\Models\User as VerifyUser;
+use Illuminate\Auth\UserInterface;
+use Zizaco\Entrust\HasRole;
 
-class User extends VerifyUser implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface {
+	/**
+	 * Add this trait to your user model
+	 *
+	 * @var roles
+	 */
+	use HasRole;
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user';
+	protected $table = 'users';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -26,8 +31,7 @@ class User extends VerifyUser implements UserInterface, RemindableInterface {
 	 *
 	 * @return mixed
 	 */
-	public function getAuthIdentifier()
-	{
+	public function getAuthIdentifier() {
 		return $this->getKey();
 	}
 
@@ -36,8 +40,7 @@ class User extends VerifyUser implements UserInterface, RemindableInterface {
 	 *
 	 * @return string
 	 */
-	public function getAuthPassword()
-	{
+	public function getAuthPassword() {
 		return $this->password;
 	}
 
@@ -46,8 +49,7 @@ class User extends VerifyUser implements UserInterface, RemindableInterface {
 	 *
 	 * @return string
 	 */
-	public function getRememberToken()
-	{
+	public function getRememberToken() {
 		return $this->remember_token;
 	}
 
@@ -57,8 +59,7 @@ class User extends VerifyUser implements UserInterface, RemindableInterface {
 	 * @param  string  $value
 	 * @return void
 	 */
-	public function setRememberToken($value)
-	{
+	public function setRememberToken($value) {
 		$this->remember_token = $value;
 	}
 
@@ -67,8 +68,7 @@ class User extends VerifyUser implements UserInterface, RemindableInterface {
 	 *
 	 * @return string
 	 */
-	public function getRememberTokenName()
-	{
+	public function getRememberTokenName() {
 		return 'remember_token';
 	}
 
@@ -77,8 +77,7 @@ class User extends VerifyUser implements UserInterface, RemindableInterface {
 	 *
 	 * @return string
 	 */
-	public function getReminderEmail()
-	{
+	public function getReminderEmail() {
 		return $this->email;
 	}
 
