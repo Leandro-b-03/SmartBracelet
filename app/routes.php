@@ -69,27 +69,11 @@ Route::group(array('before' => 'auth'), function () {
 	Route::resource('home', 'HomeController');
 	// End Home
 
-	// Start MyAccount
-	Route::resource('myaccount', 'MyAccountController');
-	// End MyAccount
-});
+    // Start MyAccount
+    Route::resource('myaccount', 'MyAccountController');
+    // End MyAccount
 
-Route::post('role', function () {
-	$sadmin = new Role;
-	// $sadmin->name = 'Super Admin';
-	// $sadmin->save();
-
-	// $admin = new Role;
-	// $admin->name = 'Admin';
-	// $admin->save();
-
-	d($sadmin);
-
-	// $user = User::where('username', '=', 'admin')->first();
-
-	// /* role attach alias */
-	// $user->attachRole($sadmin);// Parameter can be an Role object, array or id.
-
-	// /* OR the eloquent's original: */
-	// $user->roles()->attach($sadmin->id);
+    // Start Products
+    Route::resource('products', 'ProductsController');
+    // End Products
 });

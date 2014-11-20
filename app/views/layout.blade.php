@@ -18,6 +18,7 @@
     {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700'); }}
     {{ HTML::style('library/css/1.3.0/black-blue/bootstrap.min.css'); }}
     {{ HTML::style('library/css/1.3.0/black-blue/adminflare.min.css'); }}
+    {{ HTML::style("library/css/font-awesome/css/font-awesome.min.css") }}
     {{ HTML::style("library/css/pnotify.custom.min.css") }}
 
     {{ HTML::script('library/javascripts/1.3.0/modernizr-jquery.min.js'); }}
@@ -238,14 +239,14 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#">Profile</a>
+                                    <a href="{{ URL::to('myaccount') }}">Perfil</a>
                                 </li>
                                 <li>
-                                    <a href="#">Settings</a>
+                                    <a href="#">Configuração</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="index.html">Sign In</a>
+                                    <a href="{{ URL::to('logout') }}">Sair</a>
                                 </li>
                             </ul>
                         </li>
@@ -262,43 +263,19 @@
         <div id="left-panel-content">
             <ul>
                 <li class="{{ Request::is('/') ? 'active' : '' }}">
-                        <a href="{{ URL::to('/') }}"><span class="icon-dashboard"></span>Dashboard</a>
+                        <a href="{{ URL::to('/') }}"><span class="fa fa-dashboard"></span>Dashboard</a>
+                </li>
+                <li class="{{ Request::is('products') ? 'active' : '' }}">
+                    <a href="{{ URL::to('products') }}"><span class="fa fa-tags"></span>Produtos</a>
+                </li>
+                <li class="{{ Request::is('bracelets') ? 'active' : '' }}">
+                    <a href="typography.html"><span class="fa fa-circle-o-notch"></span>Pulseiras</a>
                 </li>
                 <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="layout.html"><span class="icon-th-large"></span>Layout</a>
-                </li>
-                <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="typography.html"><span class="icon-font"></span>Typography</a>
-                </li>
-                <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="forms.html"><span class="icon-edit"></span>Forms</a>
-                </li>
-                <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="tables.html"><span class="icon-table"></span>Tables</a>
-                </li>
-
-                <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="components.html"><span class="icon-inbox"></span>Components</a>
-                </li>
-                <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="javascript.html"><span class="icon-cog"></span>JavaScript</a>
+                    <a href="forms.html"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
                 <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
-                    <a href="#" class="lp-dropdown-toggle" id="extras-dropdown"><span class="icon-reorder"></span>Extras</a>
-                    <ul class="lp-dropdown-menu" data-dropdown-owner="extras-dropdown">
-                        <li>
-                            <a tabindex="-1" href="extras-icons.html"><span class="icon-coffee"></span>Icons</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="extras-charts.html"><span class="icon-bar-chart"></span>Charts</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="extras-widgets.html"><span class="icon-star"></span>Widgets</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
-                    <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>Pages</a>
+                    <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>relatorios</a>
                     <ul class="lp-dropdown-menu simple" data-dropdown-owner="pages-dropdown">
                         <li>
                             <a tabindex="-1" href="index.html"><i class="icon-signin"></i>&nbsp;&nbsp;Sign In</a>
