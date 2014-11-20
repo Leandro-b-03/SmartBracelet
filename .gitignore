@@ -9,3 +9,5 @@ Thumbs.db
 /app/views/*.php-tmp
 /app/models/*.php-tmp
 /app/views/products/*.php-tmp
+/app/controllers/*.php-tmp
+/app/views/bracelets/*.php-tmp

@@ -13,39 +13,29 @@
     <h3 class="box-header">Perfil</h3>
 	<div class="box">
 			<div class="body">
-				@if(Request::is('products/create'))
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "products")) }}
+				@if(Request::is('bracelets/create'))
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "bracelets")) }}
                 @else
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('products.update', $data['product']->id))) }}
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('bracelets.update', $data['bracelet']->id))) }}
                 @endif
 					<div class="control-group">
-						<label for="name" class="control-label span4">Produto</label>
+						<label for="tag" class="control-label span4">TAG</label>
 						<div class="controls span8">
-		                {{ Form::text('name', (isset($data['product']) ? $data['product']->name : ""), array("class" => "form-control", "required")) }}
+		                {{ Form::text('tag', (isset($data['bracelet']) ? $data['bracelet']->tag : ""), array("class" => "form-control", "required")) }}
 						</div>
 					</div>
 					<!-- /.control-group -->
 					<div class="control-group">
-						<label for="price" class="control-label span4">Preço R$</label>
+						<label for="status" class="control-label span4">Funcionario/Usuário</label>
 						<div class="controls span8">
-		                {{ Form::text('price', (isset($data['product']) ? number_format($data['product']->price, 2) : ""), array("id" => "price", "class" => "form-control", "required")) }}
+		                {{ Form::select('status', $data['users'], (isset($data['bracelet']) ? $data['bracelet']->user : "")); }}
 						</div>
 					</div>
 					<!-- /.control-group -->
 					<div class="control-group">
-						<label for="quantity" class="control-label span4">Quantidade</label>
+						<label for="color" class="control-label span4">Cor</label>
 						<div class="controls span8">
-		                {{ Form::number('quantity', (isset($data['product']) ? $data['product']->quantity : ""), array("class" => "form-control", "required")) }}
-						</div>
-					</div>
-					<!-- /.control-group -->
-					<div class="control-group">
-						<label for="status" class="control-label span4">Status</label>
-						<div class="controls span8">
-		                {{ Form::select('status',
-							    array('1' => 'Ativado', '0' => 'Destivado')
-							);
-						}}
+		                {{ Form::number('color', (isset($data['bracelet']) ? $data['bracelet']->color : ""), array("class" => "form-control", "required")) }}
 						</div>
 					</div>
 					{{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}

@@ -33,18 +33,15 @@ class ProductsController extends \BaseController {
      */
     public function store()
     {
-        //
         // Inser the data on base.
         try
         {
-            $product = null;
-
             DB::beginTransaction();
             
             $product = new Product;
 
             $product->name         = Input::get('name');
-            $product->price        = Input::get('price');
+            $product->price        = number_format(Input::get('price'), 2);
             $product->quantity     = Input::get('quantity');
             $product->status       = Input::get('status');
 
@@ -85,6 +82,13 @@ class ProductsController extends \BaseController {
     public function edit($id)
     {
         //
+        $data = array();
+
+        $product = Product::findOrFail($id);
+
+        $data['product'] = $product;
+
+        return View::make('products.edit')->with('data', $data);
     }
 
 
@@ -97,6 +101,30 @@ class ProductsController extends \BaseController {
     public function update($id)
     {
         //
+        try
+        {
+            $product = Product::findOrFail($id);
+
+            DB::beginTransaction();
+
+            $product->name         = Input::get('name');
+            $product->price        = number_format(Input::get('price'), 2);
+            $product->quantity     = Input::get('quantity');
+            $product->status       = Input::get('status');
+
+            $product->save();
+
+            DB::commit();
+
+            // redirect
+            return Redirect::to('products')->with('flash_notice', 'Produto alterado com sucesso!');
+        }
+        catch (Exception $e)
+        {
+            DB::rollback();
+            
+            return Redirect::route('products.create')->with('flash_error', 'Ocorreu um erro ao alterar o produto.')->withInput();
+        }
     }
 
 

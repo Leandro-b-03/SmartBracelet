@@ -13,30 +13,28 @@
     <h3 class="box-header">Produtos</h3>
     <div class="box">
         <div class="box pull-right" style="padding-bottom: 20px">
-            <a class="btn btn-blue"href="{{ URL::to('products/create') }}">
+            <a class="btn btn-blue"href="{{ URL::to('bracelets/create') }}">
                 <i class="fa fa-pencil"></i>
                 Adicionar Produto
             </a>
         </div>
             <table class="table table-bordered">
                 <thead>
-                    <th>Nome</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
-                    <th>Status</th>
+                    <th>TAG</th>
+                    <th>Funcionario/Usuário</th>
+                    <th>Cor</th>
                     <th>Ação</th>
                 </thead>
                 <tbody>
-                    @if ($products->count() > 0)
-                    @foreach ($products as $product)
+                    @if ($bracelets->count() > 0)
+                    @foreach ($bracelets as $bracelet)
                     <tr>
-                        <td>{{ $product->name }}</td>
-                        <td>R$ {{ number_format($product->price, 2) }}</td>
-                        <td>{{ $product->quantity }}</td>
-                        <td>{{ ($product->status ? 'Ativo' : 'Não Ativo') }}</td>
-                        <td>{{ Form::open(array('url' => 'products/' . $product->id, 'class' => '')) }}
+                        <td>{{ $bracelet->tag }}</td>
+                        <td>{{ $bracelet->user }}</td>
+                        <td>{{ $bracelet->color }}</td>
+                        <td>{{ Form::open(array('url' => 'bracelets/' . $bracelet->id, 'class' => '')) }}
                                 {{ Form::hidden('_method', 'DELETE') }}
-                                <a class="btn btn-primary" href="{{ URL::to('products/' . $product->id . '/edit') }}">
+                                <a class="btn btn-primary" href="{{ URL::to('bracelets/' . $bracelet->id . '/edit') }}">
                                     <i class="fa fa-pencil"></i>
                                     Editar
                                 </a>
