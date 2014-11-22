@@ -1,6 +1,6 @@
 <?php
 
-class BraceletsController extends \BaseController {
+class OrdersController extends \BaseController {
 
     /**
      * Display a listing of the resource.
@@ -9,9 +9,9 @@ class BraceletsController extends \BaseController {
      */
     public function index()
     {
-        $bracelets = Bracelet::all();
+        $orders = Order::all();
 
-        return View::make('bracelets.index')->with('bracelets', $bracelets);
+        return View::make('orders.index')->with('orders', $orders);
     }
 
 
@@ -22,13 +22,25 @@ class BraceletsController extends \BaseController {
      */
     public function create()
     {
+        $data = array();
+
+        $data['users'] = array();
+
         $users = User::all();
 
         foreach ($users as $user) {
             $data['users'][] = array($user->id => $user->name);
         }
 
-        return View::make('bracelets.edit')->with('data', $data);
+        $custumers = Custumer::all();
+
+        $data['custumers'] = array();
+
+        foreach ($custumers as $custumer) {
+            $data['custumers'][] = array($custumer->id => $custumer->name);
+        }
+
+        return View::make('orders.edit')->with('data', $data);
     }
 
 
@@ -44,24 +56,27 @@ class BraceletsController extends \BaseController {
         {
             DB::beginTransaction();
             
-            $bracelet = new Bracelet;
+            $order = new Order;
 
-            $bracelet->tag       = Input::get('tag');
-            $bracelet->id_user   = Input::get('id_user');
-            $bracelet->color     = Input::get('color');
+            $order->order_number = Input::get('order_number');
+            $order->id_user      = Input::get('id_user');
+            $order->id_custumer  = Input::get('id_custumer');
+            $order->amount       = Input::get('amount');
+            $order->discount     = Input::get('discount');
+            $order->status       = Input::get('status');
 
-            $bracelet->save();
+            $order->save();
 
             DB::commit();
 
             // redirect
-            return Redirect::to('bracelets')->with('flash_notice', 'Pulseira criada com sucesso!');
+            return Redirect::to('orders')->with('flash_notice', 'Pedido inserido com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::route('bracelets.create')->with('flash_error', 'Ocorreu um erro ao criar a pulseira.')->withInput();
+            return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao criar o pedido.')->withInput();
         }
     }
 
@@ -95,11 +110,11 @@ class BraceletsController extends \BaseController {
             $data['users'][] = array($user->id => $user->name);
         }
 
-        $bracelet = Bracelet::findOrFail($id);
+        $order = Order::findOrFail($id);
 
-        $data['bracelet'] = $bracelet;
+        $data['order'] = $order;
 
-        return View::make('bracelets.edit')->with('data', $data);
+        return View::make('orders.edit')->with('data', $data);
     }
 
 
@@ -114,26 +129,26 @@ class BraceletsController extends \BaseController {
         //
         try
         {
-            $bracelet = Bracelet::findOrFail($id);
+            $order = Order::findOrFail($id);
 
             DB::beginTransaction();
 
-            $bracelet->tag       = Input::get('tag');
-            $bracelet->id_user   = Input::get('id_user');
-            $bracelet->color     = Input::get('color');
+            $order->tag       = Input::get('tag');
+            $order->id_user   = Input::get('id_user');
+            $order->color     = Input::get('color');
 
-            $bracelet->save();
+            $order->save();
 
             DB::commit();
 
             // redirect
-            return Redirect::to('bracelets')->with('flash_notice', 'Pulseira alterada com sucesso!');
+            return Redirect::to('orders')->with('flash_notice', 'Pedido alterada com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::route('bracelets.create')->with('flash_error', 'Ocorreu um erro ao alterar a pulseira.')->withInput();
+            return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
         }
     }
 
@@ -152,19 +167,19 @@ class BraceletsController extends \BaseController {
 
             DB::beginTransaction();
             // delete
-            $bracelet = Bracelet::find($id);
-            $bracelet->delete();
+            $order = Order::find($id);
+            $order->delete();
 
             DB::commit();
 
             // redirect
-            return Redirect::to('bracelets')->with('flash_notice', 'Pulseira deletado com sucesso!');
+            return Redirect::to('orders')->with('flash_notice', 'Pedido deletado com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::to('bracelets')->with('flash_error', 'Erro ao tentar deletar a pulseira!');
+            return Redirect::to('orders')->with('flash_error', 'Erro ao tentar deletar o pedido!');
         }
     }
 

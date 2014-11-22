@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Smart Bracelet | Pulseiras
+    Smart Bracelet | Pedidos
 @stop
 
 @section('name')
@@ -10,31 +10,37 @@
 
 @section('content')
 <div class="row-fluid">
-    <h3 class="box-header">Pulseiras</h3>
+    <h3 class="box-header">Pedidos</h3>
     <div class="box">
         <div class="box pull-right" style="padding-bottom: 20px">
-            <a class="btn btn-blue"href="{{ URL::to('bracelets/create') }}">
+            <a class="btn btn-blue"href="{{ URL::to('orders/create') }}">
                 <i class="fa fa-pencil"></i>
-                Adicionar Pulseiras
+                Adicionar Pedidos
             </a>
         </div>
             <table class="table table-bordered">
                 <thead>
-                    <th>TAG</th>
+                    <th>Número do Pedido</th>
                     <th>Funcionario/Usuário</th>
-                    <th>Cor</th>
+                    <th>Cliente</th>
+                    <th>Valor</th>
+                    <th>Desconto</th>
+                    <th>Status</th>
                     <th>Ação</th>
                 </thead>
                 <tbody>
-                    @if ($bracelets->count() > 0)
-                    @foreach ($bracelets as $bracelet)
+                    @if ($orders->count() > 0)
+                    @foreach ($orders as $order)
                     <tr>
-                        <td>{{ $bracelet->tag }}</td>
-                        <td>{{ $bracelet->user->name }}</td>
-                        <td>{{ $bracelet->color }}</td>
-                        <td>{{ Form::open(array('url' => 'bracelets/' . $bracelet->id, 'class' => '')) }}
+                        <td>{{ $order->order_number }}</td>
+                        <td>{{ $order->user->name }}</td>
+                        <td>{{ $order->custumer->name }}</td>
+                        <td>{{ $order->discount }}</td>
+                        <td>{{ $order->amount }}</td>
+                        <td>{{ ($product->status ? 'Ativo' : 'Não Ativo') }}</td>
+                        <td>{{ Form::open(array('url' => 'orders/' . $order->id, 'class' => '')) }}
                                 {{ Form::hidden('_method', 'DELETE') }}
-                                <a class="btn btn-primary" href="{{ URL::to('bracelets/' . $bracelet->id . '/edit') }}">
+                                <a class="btn btn-primary" href="{{ URL::to('orders/' . $order->id . '/edit') }}">
                                     <i class="fa fa-pencil"></i>
                                     Editar
                                 </a>
@@ -44,7 +50,7 @@
                     @endforeach
                     @else
                     <tr>
-                        <td colspan="4">Não há pulseiras</td>
+                        <td colspan="7">Não há pedidos</td>
                     </tr>
                     @endif
                 </tbody>

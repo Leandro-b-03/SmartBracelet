@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Smart Bracelet | Produtos
+    Smart Bracelet | Pedidos
 @stop
 
 @section('name')
@@ -10,32 +10,46 @@
 
 @section('content')
 <div class="row-fluid">
-    <h3 class="box-header">Produtos</h3>
+    <h3 class="box-header">Pedidos</h3>
     <div class="box">
             <div class="body">
-                @if(Request::is('products/create'))
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "products")) }}
+                @if(Request::is('orders/create'))
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "orders")) }}
                 @else
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('products.update', $data['product']->id))) }}
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('orders.update', $data['order']->id))) }}
                 @endif
                     <div class="control-group">
-                        <label for="name" class="control-label span4">Produto</label>
+                        <label for="order_number" class="control-label span4">Número do pedido</label>
                         <div class="controls span8">
-                        {{ Form::text('name', (isset($data['product']) ? $data['product']->name : ""), array("class" => "form-control", "required")) }}
+                        {{ Form::text('order_number', (isset($data['order']) ? $data['order']->order_number : ""), array("class" => "form-control", "required")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
                     <div class="control-group">
-                        <label for="price" class="control-label span4">Preço R$</label>
+                        <label for="status" class="control-label span4">Funcionario/Usuário</label>
                         <div class="controls span8">
-                        {{ Form::text('price', (isset($data['product']) ? number_format($data['product']->price, 2) : ""), array("id" => "price", "class" => "form-control", "required")) }}
+                        {{ Form::select('id_user', $data['users'], (isset($data['order']) ? $data['order']->user->id : "")); }}
                         </div>
                     </div>
                     <!-- /.control-group -->
                     <div class="control-group">
-                        <label for="quantity" class="control-label span4">Quantidade</label>
+                        <label for="status" class="control-label span4">Cliente</label>
                         <div class="controls span8">
-                        {{ Form::number('quantity', (isset($data['product']) ? $data['product']->quantity : ""), array("class" => "form-control", "required")) }}
+                        {{ Form::select('id_custumer', $data['custumers'], (isset($data['order']) ? $data['order']->custumer->id : "")); }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="amount" class="control-label span4">Valor</label>
+                        <div class="controls span8">
+                        {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "required")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="discount" class="control-label span4">Desconto</label>
+                        <div class="controls span8">
+                        {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price", "required")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
@@ -49,7 +63,7 @@
                         </div>
                     </div>
                     {{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
-                    <a class="btn btn-danger" href="{{ URL::to('products') }}">Voltar</a>
+                    <a class="btn btn-danger" href="{{ URL::to('orders') }}">Voltar</a>
                 {{ Form::close() }}
             </div>
         </div>
@@ -68,7 +82,7 @@
             var cfgCulture = 'pt-BR';
             $.preferCulture(cfgCulture);
 
-            $('#price').maskMoney();
+            $('.price').maskMoney();
         });
     </script>
 

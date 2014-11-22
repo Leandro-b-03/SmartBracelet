@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-	Smart Bracelet | Perfil
+	Smart Bracelet | Pulseiras
 @stop
 
 @section('name')
@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row-fluid">
-    <h3 class="box-header">Perfil</h3>
+    <h3 class="box-header">Pulseiras</h3>
 	<div class="box">
 			<div class="body">
 				@if(Request::is('bracelets/create'))
@@ -28,14 +28,14 @@
 					<div class="control-group">
 						<label for="status" class="control-label span4">Funcionario/Usuário</label>
 						<div class="controls span8">
-		                {{ Form::select('status', $data['users'], (isset($data['bracelet']) ? $data['bracelet']->user : "")); }}
+		                {{ Form::select('id_user', $data['users'], (isset($data['bracelet']) ? $data['bracelet']->user->id : "")); }}
 						</div>
 					</div>
 					<!-- /.control-group -->
 					<div class="control-group">
 						<label for="color" class="control-label span4">Cor</label>
 						<div class="controls span8">
-		                {{ Form::number('color', (isset($data['bracelet']) ? $data['bracelet']->color : ""), array("class" => "form-control", "required")) }}
+		                {{ Form::text('color', (isset($data['bracelet']) ? $data['bracelet']->color : ""), array("class" => "form-control", "required")) }}
 						</div>
 					</div>
 					{{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}

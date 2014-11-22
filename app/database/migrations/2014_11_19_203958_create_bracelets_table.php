@@ -21,7 +21,7 @@ class CreateBraceletsTable extends Migration {
 
 			$table->string('tag', 255);
 			$table->integer('id_user')->references('id')->on('users');
-			$table->boolean('color');
+			$table->string('color');
 
 			$table->timestamps();
 		});

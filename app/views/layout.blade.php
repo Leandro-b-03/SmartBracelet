@@ -271,8 +271,8 @@
                 <li class="{{ Request::is('bracelets') ? 'active' : '' }}">
                     <a href="{{ URL::to('bracelets') }}"><span class="fa fa-circle-o-notch"></span>Pulseiras</a>
                 </li>
-                <li class="{{ Request::is('/') ? 'active' : '' }}">
-                    <a href="{{ URL::to('products') }}"><span class="fa fa-edit"></span>Pedidos</a>
+                <li class="{{ Request::is('orders') ? 'active' : '' }}">
+                    <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
                 <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
                     <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>relatorios</a>
