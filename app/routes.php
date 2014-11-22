@@ -73,6 +73,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::resource('myaccount', 'MyAccountController');
     // End MyAccount
 
+    // Start Users
+    Route::resource('users', 'UsersController');
+    // End Users
+
     // Start Products
     Route::resource('products', 'ProductsController');
     // End Products
