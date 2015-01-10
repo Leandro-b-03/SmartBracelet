@@ -280,12 +280,12 @@
                     <a href="{{ URL::to('products') }}"><span class="fa fa-tags"></span>Produtos</a>
                 </li>
                 <li class="{{ Request::is('bracelets') ? 'active' : '' }}">
-                    <a href="{{ URL::to('bracelets') }}"><span class="fa fa-circle-o-notch"></span>Pulseiras</a>
+                    <a href="{{ URL::to('bracelets') }}"><span class="fa fa-circle-o-notch"></span>Comandas</a>
                 </li>
                 <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
-                <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
+                <!-- <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
                     <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>relatorios</a>
                     <ul class="lp-dropdown-menu simple" data-dropdown-owner="pages-dropdown">
                         <li>
@@ -319,7 +319,7 @@
                             <a tabindex="-1" href="pages-blank.html"><i class="icon-bookmark-empty"></i>&nbsp;&nbsp;Blank page</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="icon-caret-down"></div>

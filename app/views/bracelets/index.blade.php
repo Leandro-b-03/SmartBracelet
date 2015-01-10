@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Smart Bracelet | Pulseiras
+    Smart Bracelet | Comandas
 @stop
 
 @section('name')
@@ -10,12 +10,12 @@
 
 @section('content')
 <div class="row-fluid">
-    <h3 class="box-header">Pulseiras</h3>
+    <h3 class="box-header">Comandas</h3>
     <div class="box">
         <div class="box pull-right" style="padding-bottom: 20px">
             <a class="btn btn-blue"href="{{ URL::to('bracelets/create') }}">
                 <i class="fa fa-pencil"></i>
-                Adicionar Pulseiras
+                Adicionar Comandas
             </a>
         </div>
             <table class="table table-bordered">
