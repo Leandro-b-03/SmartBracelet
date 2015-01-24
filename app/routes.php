@@ -81,9 +81,9 @@ Route::group(array('before' => 'auth'), function () {
     Route::resource('products', 'ProductsController');
     // End Products
 
-    // Start Bracelets
-    Route::resource('bracelets', 'BraceletsController');
-    // End Bracelets
+    // Start Commands
+    Route::resource('commands', 'CommandsController');
+    // End Commands
 
     // Start Orders
     Route::resource('orders', 'OrdersController');

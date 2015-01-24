@@ -20,6 +20,7 @@
     {{ HTML::style('library/css/1.3.0/black-blue/adminflare.min.css'); }}
     {{ HTML::style("library/css/font-awesome/css/font-awesome.min.css") }}
     {{ HTML::style("library/css/pnotify.custom.min.css") }}
+    {{ HTML::style("library/css/custom.css") }}
 
     {{ HTML::script('library/javascripts/1.3.0/modernizr-jquery.min.js'); }}
     {{ HTML::script('library/javascripts/1.3.0/bootstrap.min.js'); }}
@@ -279,8 +280,8 @@
                 <li class="{{ Request::is('products') ? 'active' : '' }}">
                     <a href="{{ URL::to('products') }}"><span class="fa fa-tags"></span>Produtos</a>
                 </li>
-                <li class="{{ Request::is('bracelets') ? 'active' : '' }}">
-                    <a href="{{ URL::to('bracelets') }}"><span class="fa fa-circle-o-notch"></span>Comandas</a>
+                <li class="{{ Request::is('commands') ? 'active' : '' }}">
+                    <a href="{{ URL::to('commands') }}"><span class="fa fa-circle-o-notch"></span>Comandas</a>
                 </li>
                 <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>

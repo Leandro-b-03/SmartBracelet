@@ -1,0 +1,20 @@
+.modal {
+	width: 90%;
+	margin: 0 auto;
+	left: auto;
+}
+
+.modal .modal-body {
+    min-height: 400px;
+    max-height: 100%;
+}
+
+.modal .modal-body iframe {
+	width: 100%;
+	height: 700px;
+	border: none;
+}
+
+.product-img {
+	width: 140px;
+}
