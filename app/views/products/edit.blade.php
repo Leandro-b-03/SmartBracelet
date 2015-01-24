@@ -42,8 +42,8 @@
                 <div class="control-group">
                     <label for="quantity" class="control-label span4">Imagem</label>
                     <div class="controls span8">
-                    <a href="#filemanager" role="button" class="" data-toggle="modal"><img src="{{ URL::to('/') }}/source/img-not-found.jpg" class="img-polaroid product-img"></a>
-                    {{ Form::hidden('image', (isset($data['product']) ? $data['product']->quantity : "")) }}
+                    <a href="#filemanager" role="button" class="" data-toggle="modal"><img id="product-img" src="{{ URL::to('/') }}/{{ (isset($data['product']) ? $data['product']->image : "source/img-not-found.jpg") }}" class="img-polaroid product-img"></a>
+                    {{ Form::hidden('image', (isset($data['product']) ? $data['product']->image : "source/img-not-found.jpg"), array('id' => 'image')) }}
                     </div>
                 </div>
                 <!-- /.control-group -->
@@ -86,6 +86,16 @@
 
             $('#price').maskMoney();
         });
+
+        function responsive_filemanager_callback(field_id){
+            var url = jQuery('#'+field_id).val();
+
+            var url_web = "{{ URL::to('/') }}/";
+
+            jQuery('#'+field_id).val(url.replace(url_web, ""));
+            
+            $('#product-img').attr('src', url);
+        }
     </script>
 
     @if (Session::has('flash_error'))

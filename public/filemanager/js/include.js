@@ -1292,9 +1292,11 @@ function close_window() {
 		window.close();
 	}else{
 		if(typeof parent.jQuery !== "undefined" && parent.jQuery) {
-		  parent.jQuery.fancybox.close();
+		  // parent.jQuery.fancybox.close();
+		  parent.jQuery('#filemanager').modal('hide');
 		}else{
-		  parent.$.fancybox.close();
+		  // parent.$.fancybox.close();
+		  parent.$('#filemanager').modal('hide');
 		}
 	}
 }
