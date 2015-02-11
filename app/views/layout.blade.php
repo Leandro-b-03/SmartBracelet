@@ -285,6 +285,9 @@
                 <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
+                <li class="{{ Request::is('associate') ? 'active' : '' }}">
+                    <a href="{{ URL::to('associate') }}"><span class="fa fa-edit"></span>Associar</a>
+                </li>
                 <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
                     <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>relatorios</a>
                     <ul class="lp-dropdown-menu simple" data-dropdown-owner="pages-dropdown">

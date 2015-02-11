@@ -1,0 +1,22 @@
+{
+  "name": "Marlon Oliveira Barbosa",
+  "version": "2.0.0",
+  "homepage": "https://github.com/Leandro-b-03/SmartBracelet",
+  "authors": [
+    "marlonacademi <marlon.academi@gmail.com>"
+  ],
+  "description": "Sistema de controle de estabelicimentos atravez de comandas nfc",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+
+   "dependencies": {
+    "jquery-ui-bootstrap":"*"
+  }
+}

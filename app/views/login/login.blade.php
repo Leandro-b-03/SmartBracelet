@@ -49,7 +49,7 @@
         <!-- Page content
             ================================================== -->
         <section id="signin-container">
-            <a href="dashboard.html" title="Smart Bracelet" class="header">
+            <a title="Smart Bracelet" class="header">
                 <img src="library/images/af-logo-signin.png" alt="Logar em Smart Bracelet">
                 <span>
                     Logar em<br>

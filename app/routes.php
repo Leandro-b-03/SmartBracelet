@@ -88,4 +88,14 @@ Route::group(array('before' => 'auth'), function () {
     // Start Orders
     Route::resource('orders', 'OrdersController');
     // End Orders
+    
+    //start custumers 
+    Route::resource('custumers', 'Custumers');
+    //end custumers 
+
+    //start associate
+    Route::get('associate', 'AssociateController@index');
+    Route::get('associate/getCustomersByName', 'AssociateController@getCustomersByName');
+    //end associate
+
 });

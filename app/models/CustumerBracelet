@@ -1,0 +1,16 @@
+<?php
+
+	class CustumerBracelet extends Eloquent
+	{
+		protected $table = 'custumer_bracelet';
+
+		public function user()
+	    {
+	        return $this->belongsTo('User', 'id_user');
+	    }
+
+	    public function bracelet()
+	    {
+	        return $this->belongsTo('Bracelet', 'id_bracelet');
+	    }
+	}

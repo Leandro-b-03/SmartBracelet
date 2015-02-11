@@ -12,7 +12,8 @@
 		"aws/aws-sdk-php-laravel": "dev-master",
         "raveren/kint": "dev-master",
         "barryvdh/laravel-cors": "0.2.x",
-        "doctrine/collections": "1.2"
+        "doctrine/collections": "1.2",
+        "jenssegers/date" : "*"
 
 	},
 	"autoload": {
