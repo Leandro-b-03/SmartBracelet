@@ -22,7 +22,9 @@ class UsersController extends \BaseController {
      */
     public function create()
     {
-        return View::make('users.edit');
+        $data = array();
+
+        return View::make('users.edit')->with('data', $data);
     }
 
 

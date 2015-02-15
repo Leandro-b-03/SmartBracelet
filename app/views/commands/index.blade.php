@@ -18,10 +18,9 @@
                 Adicionar Comandas
             </a>
         </div>
-            <table class="table table-bordered">
+            <table class="table table-bordered datagrid">
                 <thead>
                     <th>TAG</th>
-                    <th>Funcionario/Usuário</th>
                     <th>Cor</th>
                     <th>Ação</th>
                 </thead>
@@ -30,7 +29,6 @@
                     @foreach ($commands as $command)
                     <tr>
                         <td>{{ $command->tag }}</td>
-                        <td>{{ $command->user->name }}</td>
                         <td>{{ $command->color }}</td>
                         <td>{{ Form::open(array('url' => 'commands/' . $command->id, 'class' => '')) }}
                                 {{ Form::hidden('_method', 'DELETE') }}

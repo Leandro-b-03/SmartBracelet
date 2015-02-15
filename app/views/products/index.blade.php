@@ -18,7 +18,7 @@
                 Adicionar Produto
             </a>
         </div>
-            <table class="table table-bordered">
+            <table class="table table-bordered datagrid">
                 <thead>
                     <th>Nome</th>
                     <th>Preço</th>

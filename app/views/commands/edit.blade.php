@@ -26,13 +26,6 @@
 					</div>
 					<!-- /.control-group -->
 					<div class="control-group">
-						<label for="status" class="control-label span4">Funcionario/Usuário</label>
-						<div class="controls span8">
-		                {{ Form::select('id_user', $data['users'], (isset($data['command']) ? $data['command']->user->id : "")); }}
-						</div>
-					</div>
-					<!-- /.control-group -->
-					<div class="control-group">
 						<label for="color" class="control-label span4">Cor</label>
 						<div class="controls span8">
 		                {{ Form::text('color', (isset($data['command']) ? $data['command']->color : ""), array("class" => "form-control", "required")) }}

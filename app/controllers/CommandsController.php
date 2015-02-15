@@ -22,13 +22,7 @@ class CommandsController extends \BaseController {
      */
     public function create()
     {
-        $users = User::all();
-
-        foreach ($users as $user) {
-            $data['users'][] = array($user->id => $user->name);
-        }
-
-        return View::make('commands.edit')->with('data', $data);
+        return View::make('commands.edit');
     }
 
 
@@ -47,7 +41,6 @@ class CommandsController extends \BaseController {
             $bracelet = new Bracelet;
 
             $bracelet->tag       = Input::get('tag');
-            $bracelet->id_user   = Input::get('id_user');
             $bracelet->color     = Input::get('color');
 
             $bracelet->save();
@@ -89,12 +82,6 @@ class CommandsController extends \BaseController {
         //
         $data = array();
 
-        $users = User::all();
-
-        foreach ($users as $user) {
-            $data['users'][] = array($user->id => $user->name);
-        }
-
         $bracelet = Bracelet::findOrFail($id);
 
         $data['bracelet'] = $bracelet;
@@ -119,7 +106,6 @@ class CommandsController extends \BaseController {
             DB::beginTransaction();
 
             $bracelet->tag       = Input::get('tag');
-            $bracelet->id_user   = Input::get('id_user');
             $bracelet->color     = Input::get('color');
 
             $bracelet->save();

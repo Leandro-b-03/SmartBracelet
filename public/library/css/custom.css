@@ -18,3 +18,28 @@
 .product-img {
 	width: 140px;
 }
+
+.tab-pane {
+	display: none;
+	-webkit-transition:width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+    transition:width 2s, height 2s, background-color 2s, transform 2s;
+}
+
+.tab-pane.active {
+	display: block;
+	-webkit-transition:width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+    transition:width 2s, height 2s, background-color 2s, transform 2s;
+}
+
+.datagrid tr, .datagrid td, .datagrid th, .datagrid tbody, .datagrid table {
+	border-color: #DDD !important;
+	background: #FFF;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	border-bottom: none !important;
+}
+
+table.dataTable.no-footer {
+    border-color: #DDD !important;
+}

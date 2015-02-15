@@ -20,6 +20,8 @@
     {{ HTML::style('library/css/1.3.0/black-blue/adminflare.min.css'); }}
     {{ HTML::style("library/css/font-awesome/css/font-awesome.min.css") }}
     {{ HTML::style("library/css/pnotify.custom.min.css") }}
+    {{ HTML::style("library/css/jquery.dataTables.min.css") }}
+    {{ HTML::style("library/css/jdataTables.bootstrap.css") }}
     {{ HTML::style("library/css/custom.css") }}
 
     {{ HTML::script('library/javascripts/1.3.0/modernizr-jquery.min.js'); }}
@@ -342,8 +344,35 @@
         </footer>
         <!-- / Page footer -->
         {{ HTML::script("library/javascripts/pnotify.custom.min.js") }}
+        {{ HTML::script("library/javascripts/jquery.dataTables.min.js") }}
         @section('scripts')
         @show
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.datagrid').DataTable({
+                    language: {
+                        processing:     "Carregando...",
+                        search:         "Pesquisar&nbsp;:",
+                        lengthMenu:     "Exibir _MENU_ registros",
+                        info:           "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+                        infoEmpty:      "Exibindo de 0 a 0 de 0 registros",
+                        infoFiltered:   "(filtrado de _MAX_ registros no total)",
+                        infoPostFix:    "",
+                        loadingRecords: "Carregando...",
+                        zeroRecords:    "Não foram encontrados resultados",
+                        emptyTable:     "Não há dados disponíveis na tabela",
+                        paginate: {
+                            first:      "«« Primeiro",
+                            previous:   "« Anterior",
+                            next:       "Seguinte »",
+                            last:       "Último »»"
+                        }
+                    }
+                });
+            });
+        </script>
     </section>
 </body>
 </html>

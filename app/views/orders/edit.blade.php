@@ -18,48 +18,64 @@
                 @else
                 {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('orders.update', $data['order']->id))) }}
                 @endif
-                    <div class="control-group">
-                        <label for="order_number" class="control-label span4">Número do pedido</label>
-                        <div class="controls span8">
-                        {{ Form::text('order_number', (isset($data['order']) ? $data['order']->order_number : ""), array("class" => "form-control", "required")) }}
+                    <div>
+                        <ul id="tabs" class="nav nav-tabs">
+                            <li class="active"><a href="#general" data-toggle="tab">Geral</a></li>
+                            <li><a href="#product" data-toggle="tab">Produtos</a></li>
+                        </ul>
+                    </div>
+                    <div id="general" class="tab-pane active">
+                        <div class="control-group">
+                            <label for="order_number" class="control-label span4">Número do pedido</label>
+                            <div class="controls span8">
+                            {{ Form::text('order_number', (isset($data['order']) ? $data['order']->order_number : ""), array("class" => "form-control", "required")) }}
+                            </div>
+                        </div>
+                        <!-- /.control-group -->
+                        <div class="control-group">
+                            <label for="status" class="control-label span4">Funcionario/Usuário</label>
+                            <div class="controls span8">
+                            {{ Form::select('id_user', $data['users'], (isset($data['order']) ? $data['order']->user->id : "")); }}
+                            </div>
+                        </div>
+                        <!-- /.control-group -->
+                        <div class="control-group">
+                            <label for="status" class="control-label span4">Cliente</label>
+                            <div class="controls span8">
+                            {{ Form::select('id_custumer', $data['custumers'], (isset($data['order']) ? $data['order']->custumer->id : "")); }}
+                            </div>
+                        </div>
+                        <!-- /.control-group -->
+                        <div class="control-group">
+                            <label for="amount" class="control-label span4">Valor</label>
+                            <div class="controls span8">
+                            {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "required")) }}
+                            </div>
+                        </div>
+                        <!-- /.control-group -->
+                        <div class="control-group">
+                            <label for="discount" class="control-label span4">Desconto</label>
+                            <div class="controls span8">
+                            {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price", "required")) }}
+                            </div>
+                        </div>
+                        <!-- /.control-group -->
+                        <div class="control-group">
+                            <label for="status" class="control-label span4">Status</label>
+                            <div class="controls span8">
+                            {{ Form::select('status',
+                                    array('1' => 'Ativado', '0' => 'Destivado'), (isset($data['product']) ? $data['product']->status : "")
+                                );
+                            }}
+                            </div>
                         </div>
                     </div>
-                    <!-- /.control-group -->
-                    <div class="control-group">
-                        <label for="status" class="control-label span4">Funcionario/Usuário</label>
-                        <div class="controls span8">
-                        {{ Form::select('id_user', $data['users'], (isset($data['order']) ? $data['order']->user->id : "")); }}
-                        </div>
-                    </div>
-                    <!-- /.control-group -->
-                    <div class="control-group">
-                        <label for="status" class="control-label span4">Cliente</label>
-                        <div class="controls span8">
-                        {{ Form::select('id_custumer', $data['custumers'], (isset($data['order']) ? $data['order']->custumer->id : "")); }}
-                        </div>
-                    </div>
-                    <!-- /.control-group -->
-                    <div class="control-group">
-                        <label for="amount" class="control-label span4">Valor</label>
-                        <div class="controls span8">
-                        {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "required")) }}
-                        </div>
-                    </div>
-                    <!-- /.control-group -->
-                    <div class="control-group">
-                        <label for="discount" class="control-label span4">Desconto</label>
-                        <div class="controls span8">
-                        {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price", "required")) }}
-                        </div>
-                    </div>
-                    <!-- /.control-group -->
-                    <div class="control-group">
-                        <label for="status" class="control-label span4">Status</label>
-                        <div class="controls span8">
-                        {{ Form::select('status',
-                                array('1' => 'Ativado', '0' => 'Destivado')
-                            );
-                        }}
+                    <div id="product" class="tab-pane">
+                        <div class="control-group">
+                            <label for="order_number" class="control-label span4">Número do pedido</label>
+                            <div class="controls span8">
+                            <input id="" type="text" class="form-control" value="" /> <a class="btn btn-green">Adicionar</a>
+                            </div>
                         </div>
                     </div>
                     {{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
@@ -83,6 +99,13 @@
             $.preferCulture(cfgCulture);
 
             $('.price').maskMoney();
+
+            $('#tabs a:first').tab('show')
+
+            $('#tabs a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
         });
     </script>
 

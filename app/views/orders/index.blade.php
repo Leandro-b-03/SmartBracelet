@@ -18,7 +18,7 @@
                 Adicionar Pedidos
             </a>
         </div>
-            <table class="table table-bordered">
+            <table class="table table-bordered datagrid">
                 <thead>
                     <th>Número do Pedido</th>
                     <th>Funcionario/Usuário</th>

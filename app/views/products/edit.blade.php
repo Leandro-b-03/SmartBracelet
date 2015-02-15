@@ -51,7 +51,7 @@
                     <label for="status" class="control-label span4">Status</label>
                     <div class="controls span8">
                     {{ Form::select('status',
-                            array('1' => 'Ativado', '0' => 'Destivado')
+                            array('1' => 'Ativado', '0' => 'Destivado'), (isset($data['product']) ? $data['product']->status : "")
                         );
                     }}
                     </div>
