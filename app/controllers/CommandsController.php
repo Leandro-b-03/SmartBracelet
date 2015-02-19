@@ -119,7 +119,7 @@ class CommandsController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('commands.create')->with('flash_error', 'Ocorreu um erro ao alterar a pulseira.')->withInput();
+            return Redirect::to('commands/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar a pulseira.')->withInput();
         }
     }
 

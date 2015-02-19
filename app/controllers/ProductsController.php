@@ -125,7 +125,7 @@ class ProductsController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('products.create')->with('flash_error', 'Ocorreu um erro ao alterar o produto.')->withInput();
+            return Redirect::route('products/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o produto.')->withInput();
         }
     }
 

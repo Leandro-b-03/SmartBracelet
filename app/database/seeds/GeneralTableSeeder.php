@@ -61,6 +61,68 @@ class GeneralTableSeeder extends Seeder {
 			)
 		);
 
+		$role = new Role;
+		$role->name = 'Admin';
+		$role->save();
+
+		$role->perms()->sync(
+			array(
+				$manageUsers->id,
+
+				$manageCustumers->id,
+
+				$manageOrders->id,
+
+				$manageProducts->id,
+
+				$manageBracelets->id
+			)
+		);
+
+		$role = new Role;
+		$role->name = 'Gerente';
+		$role->save();
+
+		$role->perms()->sync(
+			array(
+				$manageUsers->id,
+
+				$manageCustumers->id,
+
+				$manageOrders->id,
+
+				$manageProducts->id,
+
+				$manageBracelets->id
+			)
+		);
+
+		$role = new Role;
+		$role->name = 'Funcionario';
+		$role->save();
+
+		$role->perms()->sync(
+			array(
+				$manageOrders->id,
+
+				$manageProducts->id,
+
+				$manageBracelets->id
+			)
+		);
+
+		$role = new Role;
+		$role->name = 'Caixa';
+		$role->save();
+
+		$role->perms()->sync(
+			array(
+				$manageOrders->id,
+
+				$manageProducts->id
+			)
+		);
+
 		$user = User::where('username', '=', 'admin')->first();
 		$user->attachRole($admin);
 

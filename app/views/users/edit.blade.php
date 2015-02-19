@@ -13,16 +13,6 @@
     <h3 class="box-header">Usuários</h3>
     <div class="box">
             <div class="body">
-
-            $user->name         = Input::get('name');
-            $user->username     = Input::get('username');
-            $user->email        = Input::get('email');
-            $user->password     = Input::get('password');
-            $user->cpf          = Input::get('cpf');
-            $user->rg           = Input::get('rg');
-            $user->phone        = Input::get('phone');
-            $user->mobile       = Input::get('mobile');
-            $user->address      = Input::get('address');
                 @if(Request::is('users/create'))
                 {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "users")) }}
                 @else
@@ -32,13 +22,6 @@
                         <label for="name" class="control-label span4">Nome Completo</label>
                         <div class="controls span8">
                         {{ Form::text('name', (isset($data['user']) ? $data['user']->name : ""), array("class" => "form-control", "required")) }}
-                        </div>
-                    </div>
-                    <!-- /.control-group -->
-                    <div class="control-group">
-                        <label for="username" class="control-label span4">Nome de Usuário</label>
-                        <div class="controls span8">
-                        {{ Form::text('username', (isset($data['user']) ? $data['user']->username : ""), array("class" => "form-control", "required")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
@@ -93,19 +76,36 @@
                         }}
                         </div>
                     </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="status" class="control-label span4">Grupo de usuários</label>
+                        <div class="controls span8">
+                        {{ Form::select('role',
+                                $data['role'], (isset($data['user']) ? $data['user']->status : '1')
+                            );
+                        }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="username" class="control-label span4">Nome de Usuário</label>
+                        <div class="controls span8">
+                        {{ Form::text('username', (isset($data['user']) ? $data['user']->username : ""), array("class" => "form-control", "required")) }}
+                        </div>
+                    </div>
                     <hr />
                     <!-- /.control-group -->
                     <div class="control-group">
                         <label for="password" class="control-label span4">Senha</label>
                         <div class="controls span8">
-                        {{ Form::text('password', (isset($data['user']) ? $data['user']->password : ""), array("class" => "form-control", "required")) }}
+                        {{ Form::password('password', "", array("class" => "form-control", "required", "id" => "password")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
                     <div class="control-group">
                         <label for="confirm" class="control-label span4">Confirmar Senha</label>
                         <div class="controls span8">
-                        {{ Form::text('confirm', (isset($data['user']) ? $data['user']->confirm : ""), array("class" => "form-control", "required")) }}
+                        {{ Form::password('confirm', "", array("class" => "form-control", "required", "id" => "confirm")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->

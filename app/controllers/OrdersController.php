@@ -148,7 +148,7 @@ class OrdersController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
+            return Redirect::route('orders/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
         }
     }
 

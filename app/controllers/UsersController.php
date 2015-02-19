@@ -24,6 +24,16 @@ class UsersController extends \BaseController {
     {
         $data = array();
 
+        $role = array();
+
+        $roles = Role::all();
+
+        foreach ($roles->all() as $role_filter) {
+            $role[] = array('id' => $role_filter->id, 'name' => $role_filter->name);
+        }
+
+        $data['role'] = $role;
+
         return View::make('users.edit')->with('data', $data);
     }
 
@@ -46,13 +56,23 @@ class UsersController extends \BaseController {
             $user->username     = Input::get('username');
             $user->email        = Input::get('email');
             $user->password     = Input::get('password');
+            $confirm            = Input::get('confirm');
+            $role               = Input::get('role');
             $user->cpf          = Input::get('cpf');
             $user->rg           = Input::get('rg');
             $user->phone        = Input::get('phone');
             $user->mobile       = Input::get('mobile');
             $user->address      = Input::get('address');
 
+            if($user->password != $confirm) {
+                return Redirect::route('users.create')->with('flash_error', 'Senha e confirmar senha são diferentes.')->withInput();
+            }
+
             $user->save();
+
+            $role = Role::find($role);
+
+            $user->attachRole($role);
 
             DB::commit();
 
@@ -63,7 +83,7 @@ class UsersController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('users.create')->with('flash_error', 'Ocorreu um erro ao criar o usuárop.')->withInput();
+            return Redirect::route('users.create')->with('flash_error', 'Ocorreu um erro ao criar o usuário.')->withInput();
         }
     }
 
@@ -118,13 +138,25 @@ class UsersController extends \BaseController {
             $user->username     = Input::get('username');
             $user->email        = Input::get('email');
             $user->password     = Input::get('password');
+            $confirm            = Input::get('confirm');
+            $role               = Input::get('role');
             $user->cpf          = Input::get('cpf');
             $user->rg           = Input::get('rg');
             $user->phone        = Input::get('phone');
             $user->mobile       = Input::get('mobile');
             $user->address      = Input::get('address');
 
+            if ($user->password) {
+                if ($user->password != $confirm) {
+                    return Redirect::to('users/' . $id . '/edit')->with('flash_error', 'Senha e confirmar senha são diferentes.')->withInput();
+                }
+            }
+
             $user->save();
+
+            $role = Role::find($role);
+
+            $user->attachRole($role);
 
             DB::commit();
 
@@ -135,7 +167,7 @@ class UsersController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('users.create')->with('flash_error', 'Ocorreu um erro ao alterar o usuárop.')->withInput();
+            return Redirect::to('users/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o usuário.')->withInput();
         }
     }
 
