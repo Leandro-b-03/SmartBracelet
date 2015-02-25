@@ -29,7 +29,7 @@ class OrdersController extends \BaseController {
         $users = User::all();
 
         foreach ($users as $user) {
-            $data['users'][] = array($user->id => $user->name);
+            $data['users'][$user->id] = $user->name;
         }
 
         $custumers = Custumer::all();
@@ -37,7 +37,15 @@ class OrdersController extends \BaseController {
         $data['custumers'] = array();
 
         foreach ($custumers as $custumer) {
-            $data['custumers'][] = array($custumer->id => $custumer->name);
+            $data['custumers'][$custumer->id] = $custumer->name;
+        }
+
+        $bracelets = Bracelet::all();
+
+        $data['bracelets'] = array();
+
+        foreach ($bracelets as $bracelet) {
+            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
         }
 
         return View::make('orders.edit')->with('data', $data);
@@ -61,9 +69,16 @@ class OrdersController extends \BaseController {
             $order->order_number = Input::get('order_number');
             $order->id_user      = Input::get('id_user');
             $order->id_custumer  = Input::get('id_custumer');
+            $id_bracelet         = Input::get('id_bracelet');
             $order->amount       = Input::get('amount');
             $order->discount     = Input::get('discount');
             $order->status       = Input::get('status');
+            $products            = Input::get('products');
+
+            d(Input::get());
+            d($products);
+
+            die;
 
             $order->save();
 

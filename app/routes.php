@@ -88,4 +88,8 @@ Route::group(array('before' => 'auth'), function () {
     // Start Orders
     Route::resource('orders', 'OrdersController');
     // End Orders
+
+    // Start Orders
+    Route::get('autocomplete/products', 'AutocompleteController@products');
+    // End Orders
 });

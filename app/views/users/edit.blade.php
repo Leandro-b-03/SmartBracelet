@@ -81,7 +81,7 @@
                         <label for="status" class="control-label span4">Grupo de usuários</label>
                         <div class="controls span8">
                         {{ Form::select('role',
-                                $data['role'], (isset($data['user']) ? $data['user']->status : '1')
+                                $data['role'], (isset($data['user_role']) ? $data['user_role'] : '0')
                             );
                         }}
                         </div>

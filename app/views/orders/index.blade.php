@@ -28,8 +28,8 @@
                     <th>Status</th>
                     <th>Ação</th>
                 </thead>
+                @if ($orders->count() > 0)
                 <tbody>
-                    @if ($orders->count() > 0)
                     @foreach ($orders as $order)
                     <tr>
                         <td>{{ $order->order_number }}</td>
@@ -48,12 +48,8 @@
                             {{ Form::close() }}</td>
                     </tr>
                     @endforeach
-                    @else
-                    <tr>
-                        <td colspan="7">Não há pedidos</td>
-                    </tr>
-                    @endif
                 </tbody>
+                @endif
             </table>
         </div>
     </div>

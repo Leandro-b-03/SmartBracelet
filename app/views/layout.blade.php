@@ -348,10 +348,9 @@
         @section('scripts')
         @show
 
-
         <script type="text/javascript">
             $(document).ready(function() {
-                $('.datagrid').DataTable({
+                var table = $('.datagrid').DataTable({
                     language: {
                         processing:     "Carregando...",
                         search:         "Pesquisar&nbsp;:",

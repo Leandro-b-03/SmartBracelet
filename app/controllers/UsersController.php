@@ -29,7 +29,7 @@ class UsersController extends \BaseController {
         $roles = Role::all();
 
         foreach ($roles->all() as $role_filter) {
-            $role[] = array('id' => $role_filter->id, 'name' => $role_filter->name);
+            $role[$role_filter->id] = $role_filter->name;
         }
 
         $data['role'] = $role;
@@ -111,9 +111,23 @@ class UsersController extends \BaseController {
         //
         $data = array();
 
+        $role = array();
+
+        $roles = Role::all();
+
+        foreach ($roles->all() as $role_filter) {
+            $role[$role_filter->id] = $role_filter->name;
+        }
+
         $user = User::findOrFail($id);
 
         $data['user'] = $user;
+
+        $data['role'] = $role;
+
+        foreach ($user->roles as $role) {
+            $data['user_role'] = $role->id;
+        }
 
         return View::make('users.edit')->with('data', $data);
     }

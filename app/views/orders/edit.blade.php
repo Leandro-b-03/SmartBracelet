@@ -47,6 +47,13 @@
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
+                            <label for="status" class="control-label span4">Comanda</label>
+                            <div class="controls span8">
+                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['order']) ? $data['order']->bracelet->id : "")); }}
+                            </div>
+                        </div>
+                        <!-- /.control-group -->
+                        <div class="control-group">
                             <label for="amount" class="control-label span4">Valor</label>
                             <div class="controls span8">
                             {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "required")) }}
@@ -56,7 +63,7 @@
                         <div class="control-group">
                             <label for="discount" class="control-label span4">Desconto</label>
                             <div class="controls span8">
-                            {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price", "required")) }}
+                            {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price")) }}
                             </div>
                         </div>
                         <!-- /.control-group -->
@@ -74,8 +81,19 @@
                         <div class="control-group">
                             <label for="order_number" class="control-label span4">Número do pedido</label>
                             <div class="controls span8">
-                            <input id="" type="text" class="form-control" value="" /> <a class="btn btn-green">Adicionar</a>
+                                <input id="autocomplete" type="text" class="form-control" value="" /> <a id="add-product" class="btn btn-green">Adicionar</a>
                             </div>
+                            <hr />
+                            <table id="products-table" class="table table-bordered">
+                                <thead>
+                                    <th>Nome</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor</th>
+                                    <th>Ação</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     {{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
@@ -91,9 +109,31 @@
     {{ HTML::script('library/javascripts/jquery.GlobalMoneyInput/jQuery.glob.min.js'); }}
     {{ HTML::script('library/javascripts/jquery.GlobalMoneyInput/globinfo/jQuery.glob.pt-BR.min.js'); }}
     {{ HTML::script('library/javascripts/jquery.GlobalMoneyInput/jquery.GlobalMoneyInput.js'); }}
+    {{ HTML::script('library/javascripts/jQuery-Autocomplete/dist/jquery.autocomplete.js'); }}
 
     <script>
         $(function($){
+            var table = $('#products-table').DataTable({
+                language: {
+                    processing:     "Carregando...",
+                    search:         "Pesquisar&nbsp;:",
+                    lengthMenu:     "Exibir _MENU_ registros",
+                    info:           "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+                    infoEmpty:      "Exibindo de 0 a 0 de 0 registros",
+                    infoFiltered:   "(filtrado de _MAX_ registros no total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Carregando...",
+                    zeroRecords:    "Não foram encontrados resultados",
+                    emptyTable:     "Não há dados disponíveis na tabela",
+                    paginate: {
+                        first:      "«« Primeiro",
+                        previous:   "« Anterior",
+                        next:       "Seguinte »",
+                        last:       "Último »»"
+                    }
+                }
+            });
+
             /* Init Global Plugin with Brazilian Portuguese configuration */
             var cfgCulture = 'pt-BR';
             $.preferCulture(cfgCulture);
@@ -105,6 +145,41 @@
             $('#tabs a').click(function (e) {
                 e.preventDefault();
                 $(this).tab('show');
+            });
+
+            var product = null;
+
+            $('#autocomplete').autocomplete({
+                serviceUrl: '/autocomplete/products',
+                onSelect: function (suggestion) {
+                    product = suggestion.data;
+                }
+            });
+
+            $('#add-product').on('click', function() {
+                var has_product = $("#product-" + product.id);
+
+                if(has_product.length == 0){
+                    table.row.add([
+                        product.name,
+                        '<input name="products.' + product.id + '.quantity" type="number" class="form-control" value="1" />',
+                        'R$ ' + product.price + '<input name="products.' + product.id + '.price" type="hidden" value="' + product.price + '" />',
+                        '<a class="btn btn-danger delete">Deletar</a>'
+                    ]).draw();
+                } else {
+                    var val = has_product.parents('tr').find('input').val();
+                    has_product.parents('tr').find('input').val(parseInt(val) + 1);
+                }
+
+                $('#autocomplete').val('');
+                product = null;
+            });
+
+            $('#products-table').on('click', 'a', function(e) {
+                $(this).parents('tr').addClass('selected');
+
+                table.row('.selected').remove().draw( false );
+                e.preventDefault();
             });
         });
     </script>
