@@ -27,10 +27,10 @@ class GeneralTableSeeder extends Seeder {
 		$manageUsers->display_name = 'Gerencia Usuários';
 		$manageUsers->save();
 
-		$manageCustumers = new Permission;
-		$manageCustumers->name = 'manage_standard_customers';
-		$manageCustumers->display_name = 'Gerencia Clientes';
-		$manageCustumers->save();
+		$manageCustomers = new Permission;
+		$manageCustomers->name = 'manage_standard_customers';
+		$manageCustomers->display_name = 'Gerencia Clientes';
+		$manageCustomers->save();
 
 		$manageOrders = new Permission;
 		$manageOrders->name = 'manage_standard_orders';
@@ -51,7 +51,7 @@ class GeneralTableSeeder extends Seeder {
 			array(
 				$manageUsers->id,
 
-				$manageCustumers->id,
+				$manageCustomers->id,
 
 				$manageOrders->id,
 
@@ -69,7 +69,7 @@ class GeneralTableSeeder extends Seeder {
 			array(
 				$manageUsers->id,
 
-				$manageCustumers->id,
+				$manageCustomers->id,
 
 				$manageOrders->id,
 
@@ -87,7 +87,7 @@ class GeneralTableSeeder extends Seeder {
 			array(
 				$manageUsers->id,
 
-				$manageCustumers->id,
+				$manageCustomers->id,
 
 				$manageOrders->id,
 

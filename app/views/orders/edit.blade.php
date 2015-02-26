@@ -42,14 +42,14 @@
                         <div class="control-group">
                             <label for="status" class="control-label span4">Cliente</label>
                             <div class="controls span8">
-                            {{ Form::select('id_custumer', $data['custumers'], (isset($data['order']) ? $data['order']->custumer->id : "")); }}
+                            {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : "")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
                             <label for="status" class="control-label span4">Comanda</label>
                             <div class="controls span8">
-                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['order']) ? $data['order']->bracelet->id : "")); }}
+                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['aorder']) ? $data['order']->order_bracelet->id : "")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->
@@ -162,8 +162,8 @@
                 if(has_product.length == 0){
                     table.row.add([
                         product.name,
-                        '<input name="products.' + product.id + '.quantity" type="number" class="form-control" value="1" />',
-                        'R$ ' + product.price + '<input name="products.' + product.id + '.price" type="hidden" value="' + product.price + '" />',
+                        '<input name="products[' + product.id + '][quantity][]" type="number" class="form-control" value="1" />',
+                        'R$ ' + product.price + '<input name="products[' + product.id + '][price][]" type="hidden" value="' + product.price + '" />',
                         '<a class="btn btn-danger delete">Deletar</a>'
                     ]).draw();
                 } else {

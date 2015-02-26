@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration {
 			$table->increments('id');
 
 			$table->integer('id_user')->references('id')->on('users');
-			$table->integer('id_custumer')->references('id')->on('custumers');
+			$table->integer('id_customer')->references('id')->on('customers');
 			$table->float('discount');
 			$table->float('amount');
 			$table->string('order_number', 255);

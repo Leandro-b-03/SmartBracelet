@@ -34,10 +34,10 @@
                     <tr>
                         <td>{{ $order->order_number }}</td>
                         <td>{{ $order->user->name }}</td>
-                        <td>{{ $order->custumer->name }}</td>
+                        <td>{{ $order->customer->name }}</td>
+                        <td>R$ {{ $order->amount }}</td>
                         <td>{{ $order->discount }}</td>
-                        <td>{{ $order->amount }}</td>
-                        <td>{{ ($product->status ? 'Ativo' : 'Não Ativo') }}</td>
+                        <td>{{ ($order->status ? 'Ativo' : 'Não Ativo') }}</td>
                         <td>{{ Form::open(array('url' => 'orders/' . $order->id, 'class' => '')) }}
                                 {{ Form::hidden('_method', 'DELETE') }}
                                 <a class="btn btn-primary" href="{{ URL::to('orders/' . $order->id . '/edit') }}">

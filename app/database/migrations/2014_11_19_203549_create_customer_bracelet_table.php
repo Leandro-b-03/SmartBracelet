@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustumerBraceletTable extends Migration {
+class CreateCustomerBraceletTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,14 @@ class CreateCustumerBraceletTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::dropIfExists('custumer_bracelet');
+		Schema::dropIfExists('customer_bracelet');
 
-		Schema::create('custumer_bracelet', function (Blueprint $table)
+		Schema::create('customer_bracelet', function (Blueprint $table)
 		{
 			//create the table user
 			$table->increments('id');
 
-			$table->integer('id_custumer')->references('id')->on('custumers');
+			$table->integer('id_customer')->references('id')->on('customers');
 			$table->integer('id_bracelet')->references('id')->on('bracelets');
 			$table->boolean('status');
 
@@ -33,6 +33,6 @@ class CreateCustumerBraceletTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::dropIfExists('custumer_bracelet');
+		Schema::dropIfExists('customer_bracelet');
 	}
 }

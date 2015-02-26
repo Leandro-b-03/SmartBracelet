@@ -9,13 +9,13 @@
 	        return $this->belongsTo('User', 'id_user');
 	    }
 
-		public function braselet()
+		public function customer()
 	    {
-	        return $this->belongsTo('Bracelet', 'id_bracelet');
+	        return $this->belongsTo('Customer', 'id_customer', 'id');
 	    }
 
-		public function custumer()
+		public function order_bracelet()
 	    {
-	        return $this->belongsTo('Custumer', 'id_custumer');
+	        return $this->hasMany('OrderBracelet');
 	    }
 	}

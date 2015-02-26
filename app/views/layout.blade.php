@@ -268,14 +268,14 @@
                 <li class="{{ Request::is('/') ? 'active' : '' }}">
                         <a href="{{ URL::to('/') }}"><span class="fa fa-dashboard"></span>Dashboard</a>
                 </li>
-                <li class="lp-dropdown {{ Request::is('users') || Request::is('custumers') ? 'active' : '' }}">
+                <li class="lp-dropdown {{ Request::is('users') || Request::is('customers') ? 'active' : '' }}">
                     <a href="#" class="lp-dropdown-toggle" id="manager-dropdown"><span class="fa fa-users"></span>Gerenciar</a>
                     <ul class="lp-dropdown-menu simple" data-dropdown-owner="manager-dropdown">
                         <li>
                             <a tabindex="-1" href="{{ URL::to('users') }}"><i class="fa fa-user"></i>&nbsp;&nbsp;Usuários</a>
                         </li>
                         <li>
-                            <a tabindex="-1" href="{{ URL::to('custumers') }}"><i class="icon-check"></i>&nbsp;&nbsp;Clientes</a>
+                            <a tabindex="-1" href="{{ URL::to('customers') }}"><i class="icon-check"></i>&nbsp;&nbsp;Clientes</a>
                         </li>
                     </ul>
                 </li>
