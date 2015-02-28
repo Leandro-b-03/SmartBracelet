@@ -13,4 +13,9 @@
 	    {
 	        return $this->belongsTo('Bracelet', 'id_bracelet');
 	    }
+
+		public function product()
+	    {
+	        return $this->belongsTo('Product', 'id_product');
+	    }
 	}

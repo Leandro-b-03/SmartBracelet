@@ -156,6 +156,8 @@ class OrdersController extends \BaseController {
             $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
         }
 
+        $data['order_bracelets'] = OrderBracelet::where('id_order', $id)->get();
+
         return View::make('orders.edit')->with('data', $data);
     }
 
