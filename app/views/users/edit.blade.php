@@ -1,41 +1,69 @@
 @extends('layout')
 
 @section('title')
-    Smart Bracelet | Produtos
+    Smart Bracelet | Usuários
 @stop
 
 @section('name')
-<h3><i class="fa fa-user"></i>&nbsp; Minha conta</h3>
+<h3><i class="fa fa-user"></i>&nbsp; Usuários</h3>
 @stop
 
 @section('content')
 <div class="row-fluid">
-    <h3 class="box-header">Produtos</h3>
+    <h3 class="box-header">Usuários</h3>
     <div class="box">
             <div class="body">
-                @if(Request::is('products/create'))
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "products")) }}
+                @if(Request::is('users/create'))
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "users")) }}
                 @else
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('products.update', $data['product']->id))) }}
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('users.update', $data['user']->id))) }}
                 @endif
                     <div class="control-group">
-                        <label for="name" class="control-label span4">Produto</label>
+                        <label for="name" class="control-label span4">Nome Completo</label>
                         <div class="controls span8">
-                        {{ Form::text('name', (isset($data['product']) ? $data['product']->name : ""), array("class" => "form-control", "required")) }}
+                        {{ Form::text('name', (isset($data['user']) ? $data['user']->name : ""), array("class" => "form-control", "required")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
                     <div class="control-group">
-                        <label for="price" class="control-label span4">Preço R$</label>
+                        <label for="email" class="control-label span4">Email</label>
                         <div class="controls span8">
-                        {{ Form::text('price', (isset($data['product']) ? number_format($data['product']->price, 2) : ""), array("id" => "price", "class" => "form-control", "required")) }}
+                        {{ Form::text('email', (isset($data['user']) ? $data['user']->email : ""), array("id" => "email", "class" => "form-control", "required")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
                     <div class="control-group">
-                        <label for="quantity" class="control-label span4">Quantidade</label>
+                        <label for="cpf" class="control-label span4">CPF</label>
                         <div class="controls span8">
-                        {{ Form::number('quantity', (isset($data['product']) ? $data['product']->quantity : ""), array("class" => "form-control", "required")) }}
+                        {{ Form::text('cpf', (isset($data['user']) ? $data['user']->cpf : ""), array("class" => "form-control", "required")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="rg" class="control-label span4">RG</label>
+                        <div class="controls span8">
+                        {{ Form::text('rg', (isset($data['user']) ? $data['user']->rg : ""), array("class" => "form-control", "required")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="phone" class="control-label span4">Telefone</label>
+                        <div class="controls span8">
+                        {{ Form::text('phone', (isset($data['user']) ? $data['user']->phone : ""), array("class" => "form-control", "required")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="mobile" class="control-label span4">Celular</label>
+                        <div class="controls span8">
+                        {{ Form::text('mobile', (isset($data['user']) ? $data['user']->mobile : ""), array("class" => "form-control", "required")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="address" class="control-label span4">Endereço</label>
+                        <div class="controls span8">
+                        {{ Form::text('address', (isset($data['user']) ? $data['user']->address : ""), array("class" => "form-control", "required")) }}
                         </div>
                     </div>
                     <!-- /.control-group -->
@@ -43,13 +71,46 @@
                         <label for="status" class="control-label span4">Status</label>
                         <div class="controls span8">
                         {{ Form::select('status',
-                                array('1' => 'Ativado', '0' => 'Destivado')
+                                array('1' => 'Ativado', '0' => 'Destivado'), (isset($data['user']) ? $data['user']->status : '1')
                             );
                         }}
                         </div>
                     </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="status" class="control-label span4">Grupo de usuários</label>
+                        <div class="controls span8">
+                        {{ Form::select('role',
+                                $data['role'], (isset($data['user_role']) ? $data['user_role'] : '0')
+                            );
+                        }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="username" class="control-label span4">Nome de Usuário</label>
+                        <div class="controls span8">
+                        {{ Form::text('username', (isset($data['user']) ? $data['user']->username : ""), array("class" => "form-control", "required")) }}
+                        </div>
+                    </div>
+                    <hr />
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="password" class="control-label span4">Senha</label>
+                        <div class="controls span8">
+                        {{ Form::password('password', "", array("class" => "form-control", "required", "id" => "password")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="confirm" class="control-label span4">Confirmar Senha</label>
+                        <div class="controls span8">
+                        {{ Form::password('confirm', "", array("class" => "form-control", "required", "id" => "confirm")) }}
+                        </div>
+                    </div>
+                    <!-- /.control-group -->
                     {{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
-                    <a class="btn btn-danger" href="{{ URL::to('products') }}">Voltar</a>
+                    <a class="btn btn-danger" href="{{ URL::to('users') }}">Voltar</a>
                 {{ Form::close() }}
             </div>
         </div>
@@ -58,20 +119,6 @@
 @stop
 
 @section('scripts')
-    {{ HTML::script('library/javascripts/jquery.GlobalMoneyInput/jQuery.glob.min.js'); }}
-    {{ HTML::script('library/javascripts/jquery.GlobalMoneyInput/globinfo/jQuery.glob.pt-BR.min.js'); }}
-    {{ HTML::script('library/javascripts/jquery.GlobalMoneyInput/jquery.GlobalMoneyInput.js'); }}
-
-    <script>
-        $(function($){
-            /* Init Global Plugin with Brazilian Portuguese configuration */
-            var cfgCulture = 'pt-BR';
-            $.preferCulture(cfgCulture);
-
-            $('#price').maskMoney();
-        });
-    </script>
-
     @if (Session::has('flash_error'))
     <script type="text/javascript">
         $(function(){

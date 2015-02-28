@@ -29,15 +29,23 @@ class OrdersController extends \BaseController {
         $users = User::all();
 
         foreach ($users as $user) {
-            $data['users'][] = array($user->id => $user->name);
+            $data['users'][$user->id] = $user->name;
         }
 
-        $custumers = Custumer::all();
+        $customers = Customer::all();
 
-        $data['custumers'] = array();
+        $data['customers'] = array();
 
-        foreach ($custumers as $custumer) {
-            $data['custumers'][] = array($custumer->id => $custumer->name);
+        foreach ($customers as $customer) {
+            $data['customers'][$customer->id] = $customer->name;
+        }
+
+        $bracelets = Bracelet::all();
+
+        $data['bracelets'] = array();
+
+        foreach ($bracelets as $bracelet) {
+            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
         }
 
         return View::make('orders.edit')->with('data', $data);
@@ -60,12 +68,28 @@ class OrdersController extends \BaseController {
 
             $order->order_number = Input::get('order_number');
             $order->id_user      = Input::get('id_user');
-            $order->id_custumer  = Input::get('id_custumer');
+            $order->id_customer  = Input::get('id_customer');
+            $id_bracelet         = Input::get('id_bracelet');
             $order->amount       = Input::get('amount');
             $order->discount     = Input::get('discount');
             $order->status       = Input::get('status');
+            $products            = Input::get('products');
 
             $order->save();
+
+            foreach ($products as $key => $values) {
+                $order_bracelet = New OrderBracelet;
+
+                $order_bracelet->id_order    = $order->id;
+                $order_bracelet->id_product  = $key;
+                $order_bracelet->id_bracelet = $id_bracelet;
+                $order_bracelet->quantity    = $values['quantity'][0];
+                $order_bracelet->price       = $values['price'][0];
+
+                $order_bracelet->save();
+
+                $order_bracelet = null;
+            }
 
             DB::commit();
 
@@ -75,6 +99,8 @@ class OrdersController extends \BaseController {
         catch (Exception $e)
         {
             DB::rollback();
+
+            d($e);
             
             return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao criar o pedido.')->withInput();
         }
@@ -114,6 +140,22 @@ class OrdersController extends \BaseController {
 
         $data['order'] = $order;
 
+        $customers = Customer::all();
+
+        $data['customers'] = array();
+
+        foreach ($customers as $customer) {
+            $data['customers'][$customer->id] = $customer->name;
+        }
+
+        $bracelets = Bracelet::all();
+
+        $data['bracelets'] = array();
+
+        foreach ($bracelets as $bracelet) {
+            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
+        }
+
         return View::make('orders.edit')->with('data', $data);
     }
 
@@ -133,11 +175,30 @@ class OrdersController extends \BaseController {
 
             DB::beginTransaction();
 
-            $order->tag       = Input::get('tag');
-            $order->id_user   = Input::get('id_user');
-            $order->color     = Input::get('color');
+            $order->order_number = Input::get('order_number');
+            $order->id_user      = Input::get('id_user');
+            $order->id_customer  = Input::get('id_customer');
+            $id_bracelet         = Input::get('id_bracelet');
+            $order->amount       = Input::get('amount');
+            $order->discount     = Input::get('discount');
+            $order->status       = Input::get('status');
+            $products            = Input::get('products');
 
             $order->save();
+
+            foreach ($products as $key => $values) {
+                $order_bracelet = New OrderBracelet;
+
+                $order_bracelet->id_order    = $order->id;
+                $order_bracelet->id_product  = $key;
+                $order_bracelet->id_bracelet = $id_bracelet;
+                $order_bracelet->quantity    = $values['quantity'][0];
+                $order_bracelet->price       = $values['price'][0];
+
+                $order_bracelet->save();
+
+                $order_bracelet = null;
+            }
 
             DB::commit();
 
@@ -148,7 +209,7 @@ class OrdersController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
+            return Redirect::route('orders/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
         }
     }
 

@@ -20,8 +20,9 @@ class CreateOrderProductTable extends Migration {
 
 			$table->integer('id_order')->references('id')->on('orders');
 			$table->integer('id_product')->references('id')->on('products');
-			$table->boolean('quantity');
-			$table->boolean('amount');
+			$table->integer('id_bracelet')->references('id')->on('bracelets');
+			$table->integer('quantity');
+			$table->float('price');
 
 			$table->timestamps();
 		});

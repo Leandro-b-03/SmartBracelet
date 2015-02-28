@@ -81,9 +81,9 @@ Route::group(array('before' => 'auth'), function () {
     Route::resource('products', 'ProductsController');
     // End Products
 
-    // Start Bracelets
-    Route::resource('bracelets', 'BraceletsController');
-    // End Bracelets
+    // Start Commands
+    Route::resource('commands', 'CommandsController');
+    // End Commands
 
     // Start Orders
     Route::resource('orders', 'OrdersController');
@@ -98,4 +98,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('associate/getCustomersByName', 'AssociateController@getCustomersByName');
     //end associate
 
+    // Start Orders
+    Route::get('autocomplete/products', 'AutocompleteController@products');
+    // End Orders
 });

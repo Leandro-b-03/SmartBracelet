@@ -20,6 +20,9 @@
     {{ HTML::style('library/css/1.3.0/black-blue/adminflare.min.css'); }}
     {{ HTML::style("library/css/font-awesome/css/font-awesome.min.css") }}
     {{ HTML::style("library/css/pnotify.custom.min.css") }}
+    {{ HTML::style("library/css/jquery.dataTables.min.css") }}
+    {{ HTML::style("library/css/jdataTables.bootstrap.css") }}
+    {{ HTML::style("library/css/custom.css") }}
 
     {{ HTML::script('library/javascripts/1.3.0/modernizr-jquery.min.js'); }}
     {{ HTML::script('library/javascripts/1.3.0/bootstrap.min.js'); }}
@@ -265,30 +268,27 @@
                 <li class="{{ Request::is('/') ? 'active' : '' }}">
                         <a href="{{ URL::to('/') }}"><span class="fa fa-dashboard"></span>Dashboard</a>
                 </li>
-                <li class="lp-dropdown {{ Request::is('users') || Request::is('custumers') ? 'active' : '' }}">
+                <li class="lp-dropdown {{ Request::is('users') || Request::is('customers') ? 'active' : '' }}">
                     <a href="#" class="lp-dropdown-toggle" id="manager-dropdown"><span class="fa fa-users"></span>Gerenciar</a>
                     <ul class="lp-dropdown-menu simple" data-dropdown-owner="manager-dropdown">
                         <li>
                             <a tabindex="-1" href="{{ URL::to('users') }}"><i class="fa fa-user"></i>&nbsp;&nbsp;Usuários</a>
                         </li>
                         <li>
-                            <a tabindex="-1" href="{{ URL::to('custumers') }}"><i class="icon-check"></i>&nbsp;&nbsp;Clientes</a>
+                            <a tabindex="-1" href="{{ URL::to('customers') }}"><i class="icon-check"></i>&nbsp;&nbsp;Clientes</a>
                         </li>
                     </ul>
                 </li>
                 <li class="{{ Request::is('products') ? 'active' : '' }}">
                     <a href="{{ URL::to('products') }}"><span class="fa fa-tags"></span>Produtos</a>
                 </li>
-                <li class="{{ Request::is('bracelets') ? 'active' : '' }}">
-                    <a href="{{ URL::to('bracelets') }}"><span class="fa fa-circle-o-notch"></span>Pulseiras</a>
+                <li class="{{ Request::is('commands') ? 'active' : '' }}">
+                    <a href="{{ URL::to('commands') }}"><span class="fa fa-circle-o-notch"></span>Comandas</a>
                 </li>
                 <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
-                <li class="{{ Request::is('associate') ? 'active' : '' }}">
-                    <a href="{{ URL::to('associate') }}"><span class="fa fa-edit"></span>Associar</a>
-                </li>
-                <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
+                <!-- <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
                     <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>relatorios</a>
                     <ul class="lp-dropdown-menu simple" data-dropdown-owner="pages-dropdown">
                         <li>
@@ -322,7 +322,7 @@
                             <a tabindex="-1" href="pages-blank.html"><i class="icon-bookmark-empty"></i>&nbsp;&nbsp;Blank page</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="icon-caret-down"></div>
@@ -344,8 +344,34 @@
         </footer>
         <!-- / Page footer -->
         {{ HTML::script("library/javascripts/pnotify.custom.min.js") }}
+        {{ HTML::script("library/javascripts/jquery.dataTables.min.js") }}
         @section('scripts')
-        @show
+        @show 
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var table = $('.datagrid').DataTable({
+                    language: {
+                        processing:     "Carregando...",
+                        search:         "Pesquisar&nbsp;:",
+                        lengthMenu:     "Exibir _MENU_ registros",
+                        info:           "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+                        infoEmpty:      "Exibindo de 0 a 0 de 0 registros",
+                        infoFiltered:   "(filtrado de _MAX_ registros no total)",
+                        infoPostFix:    "",
+                        loadingRecords: "Carregando...",
+                        zeroRecords:    "Não foram encontrados resultados",
+                        emptyTable:     "Não há dados disponíveis na tabela",
+                        paginate: {
+                            first:      "«« Primeiro",
+                            previous:   "« Anterior",
+                            next:       "Seguinte »",
+                            last:       "Último »»"
+                        }
+                    }
+                });
+            });
+        </script>
     </section>
 </body>
 </html>

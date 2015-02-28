@@ -43,6 +43,7 @@ class ProductsController extends \BaseController {
             $product->name         = Input::get('name');
             $product->price        = number_format(Input::get('price'), 2);
             $product->quantity     = Input::get('quantity');
+            $product->image        = Input::get('image');
             $product->status       = Input::get('status');
 
             $product->save();
@@ -110,6 +111,7 @@ class ProductsController extends \BaseController {
             $product->name         = Input::get('name');
             $product->price        = number_format(Input::get('price'), 2);
             $product->quantity     = Input::get('quantity');
+            $product->image        = Input::get('image');
             $product->status       = Input::get('status');
 
             $product->save();
@@ -123,7 +125,7 @@ class ProductsController extends \BaseController {
         {
             DB::rollback();
             
-            return Redirect::route('products.create')->with('flash_error', 'Ocorreu um erro ao alterar o produto.')->withInput();
+            return Redirect::route('products/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o produto.')->withInput();
         }
     }
 
