@@ -91,8 +91,18 @@
                                     <th>Valor</th>
                                     <th>Ação</th>
                                 </thead>
+                                @if ($data['order_bracelets']->count() > 0)
                                 <tbody>
+                                    @foreach ($data['order_bracelets'] as $order_bracelet)
+                                    <tr>
+                                        <td><input type="hidden" id="product-{{ $order_bracelet->id_product }}" /> {{ $order_bracelet->product->name }}</td>
+                                        <td><input name="products[{{ $order_bracelet->id_product }}][quantity][]" type="number" class="form-control qtd-plus" value="{{ $order_bracelet->quantity }}" /></td>
+                                        <td>R$ {{ $order_bracelet->price }}<input class="price" name="products[{{ $order_bracelet->id_product }}][price][]" type="hidden" value="{{ $order_bracelet->price }}" /></td>
+                                        <td><a class="btn btn-danger delete">Deletar</a></td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
+                                @endif
                             </table>
                         </div>
                     </div>
@@ -161,18 +171,27 @@
 
                 if(has_product.length == 0){
                     table.row.add([
-                        product.name,
-                        '<input name="products[' + product.id + '][quantity][]" type="number" class="form-control" value="1" />',
-                        'R$ ' + product.price + '<input name="products[' + product.id + '][price][]" type="hidden" value="' + product.price + '" />',
+                        '<input type="hidden" id="product-' + product.id + '" /> ' + product.name,
+                        '<input name="products[' + product.id + '][quantity][]" type="number" class="form-control qtd-plus" value="1" />',
+                        'R$ ' + product.price + '<input class="price" name="products[' + product.id + '][price][]" type="hidden" value="' + product.price + '" />',
                         '<a class="btn btn-danger delete">Deletar</a>'
                     ]).draw();
                 } else {
-                    var val = has_product.parents('tr').find('input').val();
-                    has_product.parents('tr').find('input').val(parseInt(val) + 1);
+                    var val = has_product.parents('tr').find('input.qtd-plus').val();
+                    has_product.parents('tr').find('input.qtd-plus').val(parseInt(val) + 1);
                 }
 
                 $('#autocomplete').val('');
                 product = null;
+            });
+
+            $('#products-table').on('change', 'input.qtd-plus', function() {
+                $('#products-table').find('input.qtd-plus').each(function() {
+                    var val = parseInt($(this).val());
+                    var price = $(this).parents('tr').find('.price').val();
+
+                    console.log(val + ' ' + price);
+                });
             });
 
             $('#products-table').on('click', 'a', function(e) {
