@@ -10,7 +10,7 @@
     <h3 class="box-header">Clientes</h3>
     <div class="box">
         <div class="box pull-right" style="padding-bottom: 20px">
-            <a class="btn btn-blue"href="{{ URL::to('custumers/create') }}">
+            <a class="btn btn-blue"href="{{ URL::to('customers/create') }}">
                 <i class="fa fa-pencil"></i>
                 Adicionar Cliente
             </a>
@@ -26,19 +26,19 @@
                     <th>Ação</th>
                 </thead>
                 <tbody>
-                    @if ($custumers->count() > 0)
-                    @foreach ($custumers as $custumer)
+                    @if ($customers->count() > 0)
+                    @foreach ($customers as $customer)
                     <tr>
-                        <td>{{$custumer->name }}</td>
-                        <td>{{$custumer->address}}</td>
-                        <td>{{$custumer->phone}}</td>
-                        <td>{{$custumer->rg}}</td>
-                        <td>{{$custumer->cpf}}</td>
-                        <td>{{$custumer->birthday}}</td>
+                        <td>{{ $customer->name }}</td>
+                        <td>{{ $customer->address }}</td>
+                        <td>{{ $customer->phone }}</td>
+                        <td>{{ $customer->rg }}</td>
+                        <td>{{ $customer->cpf }}</td>
+                        <td>{{ $customer->birthday }}</td>
                         <td>
-                			{{ Form::open(array('method' => 'DESTROY', "url" => array('custumers', $custumer->id))) }}
+                			{{ Form::open(array('method' => 'DESTROY', "url" => array('customers', $customer->id))) }}
                 			 	{{ Form::hidden('_method', 'DELETE') }}
-                                <a class="btn btn-primary" href="{{ URL::to('custumers/' . $custumer->id . '/edit') }}">
+                                <a class="btn btn-primary" href="{{ URL::to('customers/' . $customer->id . '/edit') }}">
                                     <i class="fa fa-pencil"></i>
                                     Editar
                                 </a>

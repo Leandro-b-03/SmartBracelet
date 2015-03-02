@@ -90,7 +90,7 @@ Route::group(array('before' => 'auth'), function () {
     // End Orders
     
     //start custumers 
-    Route::resource('custumers', 'Custumers');
+    Route::resource('customers', 'CustomersController');
     //end custumers 
 
     //start associate
