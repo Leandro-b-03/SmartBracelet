@@ -45,6 +45,9 @@ Route::filter('auth', function()
 		{
 			return Redirect::guest('login');
 		}
+	} else {
+		if(!Auth::user()->status)
+			Auth::logout();
 	}
 });
 

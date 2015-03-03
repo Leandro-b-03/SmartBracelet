@@ -26,8 +26,8 @@ class CreateUserTable extends Migration {
 			$table->string('mobile', 19);
 			$table->string('phone', 19);
 			$table->string('address', 255);
-			$table->string('photo', 255);
-			$table->boolean('status');
+			$table->string('photo', 255)->default('source/img-not-found.jpg');
+			$table->boolean('status')->default(0);
 
 			$table->rememberToken();
 

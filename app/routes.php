@@ -40,7 +40,6 @@ Route::get('logout', array('as' => 'logout', function () {
 }))->before('auth');
 Route::filter('guest', function () {
 	if (Auth::check()) {
-
 		return Redirect::route('home')->with('flash_notice', 'Você já está logado!');
 	}
 }

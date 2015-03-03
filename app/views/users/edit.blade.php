@@ -93,6 +93,14 @@
                         {{ Form::text('username', (isset($data['user']) ? $data['user']->username : ""), array("class" => "form-control", "required")) }}
                         </div>
                     </div>
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="quantity" class="control-label span4">Imagem</label>
+                        <div class="controls span8">
+                        <a href="#filemanager" role="button" class="" data-toggle="modal"><img id="user-img" src="{{ URL::to('/') }}/{{ (isset($data['user']) ? $data['user']->photo : "source/img-not-found.jpg") }}" class="img-polaroid product-img"></a>
+                        {{ Form::hidden('photo', (isset($data['user']) ? $data['user']->photo : "source/img-not-found.jpg"), array('id' => 'image')) }}
+                        </div>
+                    </div>
                     <hr />
                     <!-- /.control-group -->
                     <div class="control-group">
@@ -116,9 +124,30 @@
         </div>
     </div>
 </div>
+<div id="filemanager" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="filemanager" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Gerenciador de arquivos</h3>
+    </div>
+    <div class="modal-body">
+        <iframe src="{{ URL::to('/') }}/filemanager/dialog.php?type=1&field_id=image"></iframe>
+    </div>
+</div>
 @stop
 
 @section('scripts')
+    <script>
+        function responsive_filemanager_callback(field_id){
+            var url = jQuery('#'+field_id).val();
+
+            var url_web = "{{ URL::to('/') }}/";
+
+            jQuery('#'+field_id).val(url.replace(url_web, ""));
+            
+            $('#user-img').attr('src', url);
+        }
+    </script>
+
     @if (Session::has('flash_error'))
     <script type="text/javascript">
         $(function(){

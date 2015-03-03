@@ -29,8 +29,8 @@
                     <th>Celular</th>
                     <th>Ação</th>
                 </thead>
+                @if ($users->count() > 0)
                 <tbody>
-                    @if ($users->count() > 0)
                     @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->name }}</td>
@@ -50,12 +50,8 @@
                             {{ Form::close() }}</td>
                     </tr>
                     @endforeach
-                    @else
-                    <tr>
-                        <td colspan="5">Não há produtos</td>
-                    </tr>
-                    @endif
                 </tbody>
+                @endif
             </table>
         </div>
     </div>

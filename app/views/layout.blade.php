@@ -204,41 +204,11 @@
                 </a>
 
                 <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <i class=" icon-caret-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li class="nav-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider-vertical"></li>
-                    </ul>
-                    <form class="navbar-search pull-left" action="" _lpchecked="1">
-                        <input type="text" class="search-query" placeholder="Search" style="width: 120px">
-                    </form>
                     <ul class="nav pull-right">
-                        <li>
-                            <ul class="messages">
-                                <li>
-                                    <a href="#"><i class="icon-warning-sign"></i> 2<span class="        responsive-text"> alerts</span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="icon-envelope"></i> 25<span class="       responsive-text"> new messages</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="separator"></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle usermenu" data-toggle="dropdown">
-                                <img alt="Avatar" src="library/images/avatar.png">
-                                <span>&nbsp;&nbsp;Admin</span>
+                                <img alt="Avatar" src="{{ URL::to('/') . '/' . Auth::user()->photo }}">
+                                <span>&nbsp;&nbsp;{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -288,41 +258,6 @@
                 <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
-                <!-- <li class="lp-dropdown {{ Request::is('/') ? 'active' : '' }}">
-                    <a href="#" class="lp-dropdown-toggle" id="pages-dropdown"><span class="icon-file-alt"></span>relatorios</a>
-                    <ul class="lp-dropdown-menu simple" data-dropdown-owner="pages-dropdown">
-                        <li>
-                            <a tabindex="-1" href="index.html"><i class="icon-signin"></i>&nbsp;&nbsp;Sign In</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-signup.html"><i class="icon-check"></i>&nbsp;&nbsp;Sign Up</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-messages.html"><i class="icon-envelope-alt"></i>&nbsp;&nbsp;Messages</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-stream.html"><i class="icon-leaf"></i>&nbsp;&nbsp;Stream</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-pricing.html"><i class="icon-money"></i>&nbsp;&nbsp;Pricing</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-invoice.html"><i class="icon-pencil"></i>&nbsp;&nbsp;Invoice</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-map.html"><i class="icon-map-marker"></i>&nbsp;&nbsp;Full page map</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-error-404.html"><i class="icon-unlink"></i>&nbsp;&nbsp;Error 404</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-error-500.html"><i class="icon-bug"></i>&nbsp;&nbsp;Error 500</a>
-                        </li>
-                        <li>
-                            <a tabindex="-1" href="pages-blank.html"><i class="icon-bookmark-empty"></i>&nbsp;&nbsp;Blank page</a>
-                        </li>
-                    </ul>
-                </li> -->
             </ul>
         </div>
         <div class="icon-caret-down"></div>

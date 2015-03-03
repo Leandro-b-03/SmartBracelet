@@ -24,8 +24,8 @@
                     <th>Cor</th>
                     <th>Ação</th>
                 </thead>
+                @if ($commands->count() > 0)
                 <tbody>
-                    @if ($commands->count() > 0)
                     @foreach ($commands as $command)
                     <tr>
                         <td>{{ $command->tag }}</td>
@@ -40,12 +40,8 @@
                             {{ Form::close() }}</td>
                     </tr>
                     @endforeach
-                    @else
-                    <tr>
-                        <td colspan="4">Não há comandas</td>
-                    </tr>
-                    @endif
                 </tbody>
+                @endif
             </table>
         </div>
     </div>

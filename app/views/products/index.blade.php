@@ -26,8 +26,8 @@
                     <th>Status</th>
                     <th>Ação</th>
                 </thead>
+                @if ($products->count() > 0)
                 <tbody>
-                    @if ($products->count() > 0)
                     @foreach ($products as $product)
                     <tr>
                         <td>{{ $product->name }}</td>
@@ -44,12 +44,8 @@
                             {{ Form::close() }}</td>
                     </tr>
                     @endforeach
-                    @else
-                    <tr>
-                        <td colspan="5">Não há produtos</td>
-                    </tr>
-                    @endif
                 </tbody>
+                @endif
             </table>
         </div>
     </div>

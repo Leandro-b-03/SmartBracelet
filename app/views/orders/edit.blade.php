@@ -56,7 +56,7 @@
                         <div class="control-group">
                             <label for="amount" class="control-label span4">Valor</label>
                             <div class="controls span8">
-                            {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "required")) }}
+                            {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "id" => "price", "disabled")) }}
                             </div>
                         </div>
                         <!-- /.control-group -->
@@ -167,13 +167,48 @@
             });
 
             $('#add-product').on('click', function() {
+                if(product != null) {
+                    addProduct();
+                } else {
+                    if ($('#autocomplete').val() != '') {
+                        $.ajax({
+                            type: "GET",
+                            url: '/autocomplete/products',
+                            data: "query=" + $('#autocomplete').val(),
+                            dataType: "json",
+                            success: function(suggestion) {
+                                console.log(suggestion.suggestions);
+                                console.log(suggestion.suggestions.length);
+                                if(suggestion.suggestions.length == 1) {
+                                    product = suggestion.suggestions[0].data;
+                                    addProduct();
+                                } else {
+                                    new PNotify({
+                                        title: 'Erro',
+                                        text: 'Produto não encontrado.',
+                                        type: 'error'
+                                    });
+                                }
+                            },
+                        });
+                    } else {
+                        new PNotify({
+                            title: 'Erro',
+                            text: 'Digite o nome de um produto.',
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+
+            function addProduct() {
                 var has_product = $("#product-" + product.id);
 
                 if(has_product.length == 0){
                     table.row.add([
                         '<input type="hidden" id="product-' + product.id + '" /> ' + product.name,
                         '<input name="products[' + product.id + '][quantity][]" type="number" class="form-control qtd-plus" value="1" />',
-                        'R$ ' + product.price + '<input class="price" name="products[' + product.id + '][price][]" type="hidden" value="' + product.price + '" />',
+                        'R$ ' + parseFloat(product.price).toFixed(2) + '<input class="price" name="products[' + product.id + '][price][]" type="hidden" value="' + product.price + '" />',
                         '<a class="btn btn-danger delete">Deletar</a>'
                     ]).draw();
                 } else {
@@ -183,16 +218,25 @@
 
                 $('#autocomplete').val('');
                 product = null;
-            });
+                sumPrices();
+            }
 
             $('#products-table').on('change', 'input.qtd-plus', function() {
+                sumPrices();
+            });
+
+            function sumPrices() {
+                var total = 0;
                 $('#products-table').find('input.qtd-plus').each(function() {
                     var val = parseInt($(this).val());
-                    var price = $(this).parents('tr').find('.price').val();
+                    var price = parseFloat($(this).parents('tr').find('.price').val());
+                    var total_inside = parseFloat(val * price);
 
-                    console.log(val + ' ' + price);
+                    total = parseFloat(total) + total_inside;
                 });
-            });
+
+                $('#price').val(total.toFixed(2));
+            }
 
             $('#products-table').on('click', 'a', function(e) {
                 $(this).parents('tr').addClass('selected');

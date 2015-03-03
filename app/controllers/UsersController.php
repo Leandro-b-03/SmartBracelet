@@ -59,6 +59,7 @@ class UsersController extends \BaseController {
             $confirm            = Input::get('confirm');
             $role               = Input::get('role');
             $user->cpf          = Input::get('cpf');
+            $user->photo        = Input::get('photo');
             $user->rg           = Input::get('rg');
             $user->phone        = Input::get('phone');
             $user->mobile       = Input::get('mobile');
@@ -151,16 +152,17 @@ class UsersController extends \BaseController {
             $user->name         = Input::get('name');
             $user->username     = Input::get('username');
             $user->email        = Input::get('email');
-            $user->password     = Input::get('password');
+            $password           = Input::get('password');
             $confirm            = Input::get('confirm');
             $role               = Input::get('role');
             $user->cpf          = Input::get('cpf');
+            $user->photo        = Input::get('photo');
             $user->rg           = Input::get('rg');
             $user->phone        = Input::get('phone');
             $user->mobile       = Input::get('mobile');
             $user->address      = Input::get('address');
 
-            if ($user->password) {
+            if ($password) {
                 if ($user->password != $confirm) {
                     return Redirect::to('users/' . $id . '/edit')->with('flash_error', 'Senha e confirmar senha são diferentes.')->withInput();
                 }

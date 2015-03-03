@@ -48,6 +48,8 @@ class OrdersController extends \BaseController {
             $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
         }
 
+        $data['order_bracelets'] = OrderBracelet::where('id_order', '0')->get();
+
         return View::make('orders.edit')->with('data', $data);
     }
 
@@ -75,6 +77,8 @@ class OrdersController extends \BaseController {
             $order->status       = Input::get('status');
             $products            = Input::get('products');
 
+            d($products);
+
             $order->save();
 
             foreach ($products as $key => $values) {
@@ -94,7 +98,7 @@ class OrdersController extends \BaseController {
             DB::commit();
 
             // redirect
-            return Redirect::to('orders')->with('flash_notice', 'Pedido inserido com sucesso!');
+            return Redirect::to('orders')->with('flash_notice', 'Pedido inserido com sucesso!')->with('products', $data['order_bracelets'] = $products);
         }
         catch (Exception $e)
         {
@@ -102,7 +106,7 @@ class OrdersController extends \BaseController {
 
             d($e);
             
-            return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao criar o pedido.')->withInput();
+            // return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao criar o pedido.')->withInput();
         }
     }
 
