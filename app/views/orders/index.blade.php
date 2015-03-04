@@ -35,7 +35,7 @@
                         <td>{{ $order->order_number }}</td>
                         <td>{{ $order->user->name }}</td>
                         <td>{{ $order->customer->name }}</td>
-                        <td>R$ {{ $order->amount }}</td>
+                        <td>R$ {{ number_format ($order->amount, 2) }}</td>
                         <td>{{ $order->discount }}</td>
                         <td>{{ ($order->status ? 'Ativo' : 'Não Ativo') }}</td>
                         <td>{{ Form::open(array('url' => 'orders/' . $order->id, 'class' => '')) }}

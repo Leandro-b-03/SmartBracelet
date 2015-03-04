@@ -77,12 +77,15 @@ class OrdersController extends \BaseController {
             $order->status       = Input::get('status');
             $products            = Input::get('products');
 
+            d(Input::get());
             d($products);
 
             $order->save();
 
             foreach ($products as $key => $values) {
                 $order_bracelet = New OrderBracelet;
+
+                d($values);
 
                 $order_bracelet->id_order    = $order->id;
                 $order_bracelet->id_product  = $key;
@@ -162,6 +165,8 @@ class OrdersController extends \BaseController {
 
         $data['order_bracelets'] = OrderBracelet::where('id_order', $id)->get();
 
+        $data['bracelet_id'] = $data['order_bracelets']->first()->id_bracelet;
+
         return View::make('orders.edit')->with('data', $data);
     }
 
@@ -191,6 +196,8 @@ class OrdersController extends \BaseController {
             $products            = Input::get('products');
 
             $order->save();
+
+            OrderBracelet::where('id_order', $id)->delete();
 
             foreach ($products as $key => $values) {
                 $order_bracelet = New OrderBracelet;

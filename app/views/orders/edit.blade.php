@@ -49,14 +49,15 @@
                         <div class="control-group">
                             <label for="status" class="control-label span4">Comanda</label>
                             <div class="controls span8">
-                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['aorder']) ? $data['order']->order_bracelet->id : "")); }}
+                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
                             <label for="amount" class="control-label span4">Valor</label>
                             <div class="controls span8">
-                            {{ Form::text('amount', (isset($data['order']) ? $data['order']->amount : ""), array("class" => "form-control price", "id" => "price", "disabled")) }}
+                            {{ Form::text('amount', (isset($data['order']) ? "R$ " . number_format ($data['order']->amount, 2) : ""), array("class" => "form-control price", "id" => "price", "disabled")) }}
+                            {{ Form::hidden('amount', (isset($data['order']) ? $data['order']->amount : ""), array("id" => "pricea")) }}
                             </div>
                         </div>
                         <!-- /.control-group -->
@@ -97,7 +98,7 @@
                                     <tr>
                                         <td><input type="hidden" id="product-{{ $order_bracelet->id_product }}" /> {{ $order_bracelet->product->name }}</td>
                                         <td><input name="products[{{ $order_bracelet->id_product }}][quantity][]" type="number" class="form-control qtd-plus" value="{{ $order_bracelet->quantity }}" /></td>
-                                        <td>R$ {{ $order_bracelet->price }}<input class="price" name="products[{{ $order_bracelet->id_product }}][price][]" type="hidden" value="{{ $order_bracelet->price }}" /></td>
+                                        <td>R$ {{ number_format ($order_bracelet->price, 2) }}<input class="price" name="products[{{ $order_bracelet->id_product }}][price][]" type="hidden" value="{{ $order_bracelet->price }}" /></td>
                                         <td><a class="btn btn-danger delete">Deletar</a></td>
                                     </tr>
                                     @endforeach
@@ -235,7 +236,8 @@
                     total = parseFloat(total) + total_inside;
                 });
 
-                $('#price').val(total.toFixed(2));
+                $('#price').val('R$ ' + total.toFixed(2));
+                $('#pricea').val(total.toFixed(2));
             }
 
             $('#products-table').on('click', 'a', function(e) {
