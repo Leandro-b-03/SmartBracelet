@@ -77,9 +77,6 @@ class OrdersController extends \BaseController {
             $order->status       = Input::get('status');
             $products            = Input::get('products');
 
-            d(Input::get());
-            d($products);
-
             $order->save();
 
             foreach ($products as $key => $values) {
