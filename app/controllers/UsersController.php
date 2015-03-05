@@ -48,14 +48,20 @@ class UsersController extends \BaseController {
         // Inser the data on base.
         try
         {
+            $exist_user = User::where('username', (Input::get('username')));
+
             DB::beginTransaction();
+
+            if($exist_user->count() != 0) {
+                return Redirect::route('users.create')->with('flash_error', 'Nome de usuário em uso.')->withInput();
+            }
             
             $user = new User;
 
             $user->name         = Input::get('name');
             $user->username     = Input::get('username');
             $user->email        = Input::get('email');
-            $user->password     = Input::get('password');
+            $password           = Input::get('password');
             $confirm            = Input::get('confirm');
             $role               = Input::get('role');
             $user->cpf          = Input::get('cpf');
@@ -64,10 +70,13 @@ class UsersController extends \BaseController {
             $user->phone        = Input::get('phone');
             $user->mobile       = Input::get('mobile');
             $user->address      = Input::get('address');
+            $user->status       = Input::get('status');
 
-            if($user->password != $confirm) {
+            if($password != $confirm) {
                 return Redirect::route('users.create')->with('flash_error', 'Senha e confirmar senha são diferentes.')->withInput();
             }
+
+            $user->password = Hash::make($password);
 
             $user->save();
 
@@ -147,6 +156,14 @@ class UsersController extends \BaseController {
         {
             $user = User::findOrFail($id);
 
+            $exist_user = User::where('username', (Input::get('username')));
+
+            if($user->username != Input::get('username')) {
+                if($exist_user->count() != 0) {
+                    return Redirect::to('users/' . $id . '/edit')->with('flash_error', 'Nome de usuário em uso.')->withInput();
+                }
+            }
+
             DB::beginTransaction();
 
             $user->name         = Input::get('name');
@@ -161,10 +178,13 @@ class UsersController extends \BaseController {
             $user->phone        = Input::get('phone');
             $user->mobile       = Input::get('mobile');
             $user->address      = Input::get('address');
+            $user->status       = Input::get('status');
 
-            if ($password) {
-                if ($user->password != $confirm) {
+            if ($password && $password != "") {
+                if ($password != $confirm) {
                     return Redirect::to('users/' . $id . '/edit')->with('flash_error', 'Senha e confirmar senha são diferentes.')->withInput();
+                } else {
+                    $user->password = Hash::make($password);
                 }
             }
 
@@ -182,6 +202,7 @@ class UsersController extends \BaseController {
         catch (Exception $e)
         {
             DB::rollback();
+            die();
             
             return Redirect::to('users/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o usuário.')->withInput();
         }

@@ -81,4 +81,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	/**
+	 * Get the username if already exists.
+	 *
+	 * @return string
+	 */
+	public function username($value)
+	{
+	    return $this->where('username', '=', $value);
+	}
+
 }

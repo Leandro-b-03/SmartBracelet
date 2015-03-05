@@ -65,7 +65,7 @@ if ((int)(ini_get('post_max_size')) < $MaxSizeUpload){
 	$MaxSizeUpload = (int)(ini_get('post_max_size'));
 }
 
-$default_language 	= "en_EN"; //default language file name
+$default_language 	= "pt_BR"; //default language file name
 $icon_theme 		= "ico"; //ico or ico_dark you can cusatomize just putting a folder inside filemanager/img
 $show_folder_size	= TRUE; //Show or not show folder size in list view feature in filemanager (is possible, if there is a large folder, to greatly increase the calculations)
 $show_sorting_bar	= TRUE; //Show or not show sorting feature in filemanager
@@ -180,14 +180,14 @@ $ext = array_merge($ext_img, $ext_file, $ext_misc, $ext_video,$ext_music); //all
  * AVIARY config
 *******************/
 $aviary_active  = TRUE;
-$aviary_apiKey  = "dvh8qudbp6yx2bnp";
-$aviary_secret  = "m6xaym5q42rpw433";
+$aviary_apiKey  = "f109e8bea3306aac";
+$aviary_secret  = "ed96dc8705b250a6";
 // Add or modify the Aviary options below as needed - they will be json encoded when added to the configuration so arrays can be utilized as needed
 // For a list of options see: https://developers.aviary.com/docs/web/setup-guide#constructor-config
 $aviary_defaults_config = array(
     'apiKey' => $aviary_apiKey,
     'apiVersion' => 3,
-    'language' => 'en',
+    'language' => 'pt_BR',
     'theme' => 'light',
     'tools' => 'all'
 );
