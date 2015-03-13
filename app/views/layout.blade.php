@@ -212,11 +212,11 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="{{ URL::to('myaccount') }}">Perfil</a>
+                                    <a href="{{  URL::to('users/' . Auth::user()->id . '/edit') }}">Perfil</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#">Configuração</a>
-                                </li>
+                                </li> -->
                                 <li class="divider"></li>
                                 <li>
                                     <a href="{{ URL::to('logout') }}">Sair</a>
