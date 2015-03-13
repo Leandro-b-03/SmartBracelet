@@ -16,19 +16,19 @@
 				@if(Request::is('commands/create'))
                 {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "commands")) }}
                 @else
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('commands.update', $data['command']->id))) }}
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('commands.update', $data['bracelet']->id))) }}
                 @endif
 					<div class="control-group">
 						<label for="tag" class="control-label span4">TAG</label>
 						<div class="controls span8">
-		                {{ Form::text('tag', (isset($data['command']) ? $data['command']->tag : ""), array("class" => "form-control", "required")) }}
+		                {{ Form::text('tag', (isset($data['bracelet']) ? $data['bracelet']->tag : ""), array("class" => "form-control", "required")) }}
 						</div>
 					</div>
 					<!-- /.control-group -->
 					<div class="control-group">
 						<label for="color" class="control-label span4">Cor</label>
 						<div class="controls span8">
-		                {{ Form::text('color', (isset($data['command']) ? $data['command']->color : ""), array("class" => "form-control", "required")) }}
+		                {{ Form::text('color', (isset($data['bracelet']) ? $data['bracelet']->color : ""), array("class" => "form-control", "required")) }}
 						</div>
 					</div>
 					{{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
