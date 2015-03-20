@@ -174,73 +174,73 @@ class GeneralTableSeeder extends Seeder {
 
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Azul',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Azul',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Verde',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Verde',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Vermelho',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Vermelho',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Amarelo',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Amarelo',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Roxo',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Roxo',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Rosa',
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
 				'color' => 'Rosa',
 			)
 		);

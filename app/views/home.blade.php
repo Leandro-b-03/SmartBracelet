@@ -15,72 +15,104 @@
         <!-- Bracelets statistics
             ================================================== -->
         <section class="row-fluid">
-            <div class="well widget-pie-charts span6">
+            <div class="span8">
                 <h3 class="box-header">
-                    Total de braceletes
+                    <i class="fa fa-user"></i>
+                    Vincular cliente a comanda
                 </h3>
-                <div class="box no-border non-collapsible">
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-1" data-percent="58">
-                            58%
-                        </div>
-                        <div class="caption">
-                            Braceletes em uso
+
+                <div class="box">
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="status" class="control-label span4">Cliente</label>
+                        <div class="controls span8">
+                        {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : "")); }}
                         </div>
                     </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-2" data-percent="42">
-                            42%
-                        </div>
-                        <div class="caption">
-                            Braceletes disponiveis
-                        </div>
-                    </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-3" data-percent="91">
-                            91%
-                        </div>
-                        <div class="caption">
-                            Total de Braceletes usados
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="status" class="control-label span4">Comanda</label>
+                        <div class="controls span8">
+                        {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="well widget-pie-charts span6">
+            <div id="counters" class="span4">
                 <h3 class="box-header">
-                    Total lucro
+                    <i class="icon-signal"></i>
+                    Estatisticas
                 </h3>
-                <div class="box no-border non-collapsible">
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-4" data-percent="82">
-                            752MB
+                <div class="box no-border no-padding widget-statistics">
+                
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ count($data['bracelets']) }}
+                            </span>
                         </div>
-                        <div class="caption">
-                            Used RAM
-                        </div>
-                    </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-5" data-percent="35">
-                            35%
-                        </div>
-                        <div class="caption">
-                            Processor Load
+                        <div class="counter-label">
+                            Comandas
                         </div>
                     </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-6" data-percent="77">
-                            1.5TB
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ count($data['bracelets']) }}
+                            </span>
                         </div>
-                        <div class="caption">
-                            Bandwidth
+                        <div class="counter-label">
+                            Comandas em Uso
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ count($data['customers']) }}
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Clientes Cadastrados
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ count($data['customers']) }}
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Clientes Ativos
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            14
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Pending Comments
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            11
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Support Requests
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- / Daily statistics -->
         </section>
         <!-- / Server statistics -->
 @stop

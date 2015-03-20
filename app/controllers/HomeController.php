@@ -17,7 +17,27 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-        return View::make('home');
+		$data = array();
+
+        $customers = Customer::all();
+
+        $data['customers'] = array();
+
+        foreach ($customers as $customer) {
+            $data['customers'][$customer->id] = $customer->name;
+        }
+
+        $bracelets = Bracelet::all();
+
+        $data['bracelets'] = array();
+
+        foreach ($bracelets as $bracelet) {
+            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
+        }
+
+        $data['order_bracelets'] = OrderBracelet::where('id_order', '0')->get();
+
+        return View::make('home')->with('data', $data);
 	}
 
 }
