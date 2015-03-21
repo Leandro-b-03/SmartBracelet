@@ -28,7 +28,10 @@
 					<div class="control-group">
 						<label for="color" class="control-label span4">Cor</label>
 						<div class="controls span8">
-		                {{ Form::text('color', (isset($data['bracelet']) ? $data['bracelet']->color : ""), array("class" => "form-control", "required")) }}
+		                {{ Form::select('color',
+                                array('1' => 'Vermelho', '2' => 'Verde'), (isset($data['bracelet']) ? $data['bracelet']->color : '1')
+                            );
+                        }}
 						</div>
 					</div>
 					{{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}

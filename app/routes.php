@@ -15,7 +15,6 @@
 Route::get('login', array('as' => 'login', function () {
 	return View::make('login.login');
 }))->before('guest');
-Route::post('general/company', 'GeneralController@company');
 Route::post('login', function () {
 	$user = array(
 		'username' => Input::get('username'),
@@ -54,7 +53,23 @@ Route::post('reminder', 'RemindersController@postRemind');
 Route::get('password/reset/{token}', 'RemindersController@getReset');
 Route::post('password/reset/{token}', 'RemindersController@postReset');
 
-Route::post('payments/return/bcash', 'PaymentsController@callBackBcash');
+Route::post('app/login', function () {
+	$user = array(
+		'username' => Input::get('username'),
+		'password' => Input::get('password')
+	);
+
+	try {
+		if (Auth::attempt($user)) {
+			return Response::json(array('return' => true, 'idFuncionario' => Auth::user()->id));
+		}
+	} catch (UserDeletedException $e) {
+		return Response::json(array('return' => false));
+	}
+
+	return Response::json(array('return' => false));
+}
+);
 // End Login
 
 // ===============================================
