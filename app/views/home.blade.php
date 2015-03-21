@@ -22,6 +22,7 @@
                 </h3>
 
                 <div class="box">
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "home")) }}
                     <!-- /.control-group -->
                     <div class="control-group">
                         <label for="status" class="control-label span4">Cliente</label>
@@ -36,6 +37,8 @@
                         {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
                         </div>
                     </div>
+                    {{ Form::submit('Vincular', array("class" => "btn btn-primary")) }}
+                {{ Form::close() }}
                 </div>
             </div>
             <div id="counters" class="span4">

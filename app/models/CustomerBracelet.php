@@ -1,8 +1,8 @@
 <?php
 
-	class CustumerBracelet extends Eloquent
+	class CustomerBracelet extends Eloquent
 	{
-		protected $table = 'custumer_bracelet';
+		protected $table = 'customer_bracelet';
 
 		public function user()
 	    {
