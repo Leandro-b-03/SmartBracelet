@@ -259,7 +259,7 @@
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
                 <li class="{{ Request::is('verify_command') ? 'active' : '' }}">
-                    <a href="{{ URL::to('verify_command') }}"><span class="fa fa-edit"></span>Verificar Comanda</a>
+                    <a href="{{ URL::to('verify_command') }}"><span class="fa fa-search-plus "></span>Verificar</a>
                 </li>
             </ul>
         </div>
@@ -275,9 +275,9 @@
         <!-- Page footer
             ================================================== -->
         <footer id="main-footer">
-            Copyright © 2013 <a href="#">Smart Bracelet</a>, all rights reserved.
+            Copyright © {{ date('Y') }} <a href="#">Smart Bracelet</a>, todos os direitos reservados.
             <a href="#" class="pull-right" id="on-top-link">
-                On Top&nbsp;<i class=" icon-chevron-up"></i>
+                Para cima&nbsp;<i class=" icon-chevron-up"></i>
             </a>
         </footer>
         <!-- / Page footer -->

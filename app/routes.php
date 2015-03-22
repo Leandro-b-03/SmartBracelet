@@ -102,6 +102,10 @@ Route::group(array('before' => 'auth'), function () {
     // Start Orders
     Route::resource('orders', 'OrdersController');
     // End Orders
+
+    // Start Orders
+    Route::resource('verify_command', 'VerifyCommandController');
+    // End Orders
     
     //start custumers 
     Route::resource('customers', 'CustomersController');
