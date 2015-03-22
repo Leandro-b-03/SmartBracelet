@@ -15,6 +15,7 @@ class GeneralTableSeeder extends Seeder {
 				'mobile' => '(11) 9654-89789',
 				'phone' => '(11) 4242-0244',
 				'address' => 'Avenida Pignatari, 635',
+				'status' => 1,
 			)
 		);
 
@@ -174,74 +175,74 @@ class GeneralTableSeeder extends Seeder {
 
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Azul',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 1,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Azul',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 1,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Verde',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 2,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Verde',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 2,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Vermelho',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 1,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Vermelho',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 1,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Amarelo',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 2,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Amarelo',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 2,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Roxo',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 1,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Roxo',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 1,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Rosa',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 2,
 			)
 		);
 		Bracelet::create(
 			array(
-				'tag' => strtoupper(substr(md5(mt_rand()), 12)),
-				'color' => 'Rosa',
+				'tag' => strtoupper(substr(md5(mt_rand()), 0, 12)),
+				'color' => 2,
 			)
 		);
 	}

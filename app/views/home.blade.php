@@ -15,70 +15,119 @@
         <!-- Bracelets statistics
             ================================================== -->
         <section class="row-fluid">
-            <div class="well widget-pie-charts span6">
+            <div class="span8">
                 <h3 class="box-header">
-                    Total de braceletes
+                    <i class="fa fa-user"></i>
+                    Vincular cliente a comanda
                 </h3>
-                <div class="box no-border non-collapsible">
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-1" data-percent="58">
-                            58%
-                        </div>
-                        <div class="caption">
-                            Braceletes em uso
+
+                <div class="box">
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "home")) }}
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="status" class="control-label span4">Cliente</label>
+                        <div class="controls span8">
+                        {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : "")); }}
                         </div>
                     </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-2" data-percent="42">
-                            42%
-                        </div>
-                        <div class="caption">
-                            Braceletes disponiveis
+                    <!-- /.control-group -->
+                    <div class="control-group">
+                        <label for="status" class="control-label span4">Comanda</label>
+                        <div class="controls span8">
+                        {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
                         </div>
                     </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-3" data-percent="91">
-                            91%
+                    {{ Form::submit('Vincular', array("class" => "btn btn-primary")) }}
+                {{ Form::close() }}
+                </div>
+            </div>
+            <div id="counters" class="span4">
+                <h3 class="box-header">
+                    <i class="icon-signal"></i>
+                    Estatisticas
+                </h3>
+                <div class="box no-border no-padding widget-statistics">
+                
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ $data['bracelets_total'] }}
+                            </span>
                         </div>
-                        <div class="caption">
-                            Total de Braceletes usados
+                        <div class="counter-label">
+                            Comandas
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ $data['bracelets_total'] - count($data['bracelets']) }}
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Comandas em Uso
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ $data['customers_total'] }}
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Clientes Cadastrados
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-borders">
+                        <div class="counter small">
+                            <span>
+                            {{ $data['customers_total'] - count($data['customers']) }}
+                            </span>
+                        </div>
+                        <div class="counter-label">
+                            Clientes Ativos
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="well widget-pie-charts span6">
+            <!-- / Daily statistics -->
+        </section>
+        <section class="row-fluid">
+            <div class="span8">
                 <h3 class="box-header">
-                    Total lucro
+                    <i class="fa fa-user"></i>
+                    Clientes vinculados
                 </h3>
-                <div class="box no-border non-collapsible">
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-4" data-percent="82">
-                            752MB
-                        </div>
-                        <div class="caption">
-                            Used RAM
-                        </div>
-                    </div>
 
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-5" data-percent="35">
-                            35%
-                        </div>
-                        <div class="caption">
-                            Processor Load
-                        </div>
-                    </div>
-
-                    <div class="span4 pie-chart">
-                        <div id="easy-pie-chart-6" data-percent="77">
-                            1.5TB
-                        </div>
-                        <div class="caption">
-                            Bandwidth
-                        </div>
-                    </div>
+                <div class="box">
+                    <table class="table table-bordered datagrid">
+                        <thead>
+                            <th>Usuário</th>
+                            <th>Comanda</th>
+                            <th>Ação</th>
+                        </thead>
+                        @if ($data['customer_bracelets']->count() > 0)
+                        <tbody>
+                            @foreach ($data['customer_bracelets'] as $customer_bracelet)
+                            <tr>
+                                <td>{{ $customer_bracelet->customer()->first()->name }}</td>
+                                <td>{{ $customer_bracelet->bracelet()->first()->tag . ' - ' . ($customer_bracelet->bracelet()->first()->color == 1 ? 'Vermelho' : 'Verde') }}</td>
+                                <td>{{ Form::open(array('url' => 'commands/' . $customer_bracelet->id, 'class' => '')) }}
+                                        {{ Form::hidden('_method', 'DELETE') }}
+                                        <a class="btn btn-primary" href="{{ URL::to('commands/' . $customer_bracelet->id . '/edit') }}">
+                                            <i class="fa fa-pencil"></i>
+                                            Editar
+                                        </a>
+                                        {{ HTML::decode(Form::button('<i class="fa fa-close"></i> Deletar', array("class" => "btn btn-danger", "type" => "submit"))) }}
+                                    {{ Form::close() }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
+                    </table>
                 </div>
             </div>
         </section>

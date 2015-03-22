@@ -15,7 +15,6 @@
 Route::get('login', array('as' => 'login', function () {
 	return View::make('login.login');
 }))->before('guest');
-Route::post('general/company', 'GeneralController@company');
 Route::post('login', function () {
 	$user = array(
 		'username' => Input::get('username'),
@@ -54,7 +53,23 @@ Route::post('reminder', 'RemindersController@postRemind');
 Route::get('password/reset/{token}', 'RemindersController@getReset');
 Route::post('password/reset/{token}', 'RemindersController@postReset');
 
-Route::post('payments/return/bcash', 'PaymentsController@callBackBcash');
+Route::get('app/login', function () {
+	$user = array(
+		'username' => Input::get('username'),
+		'password' => Input::get('password')
+	);
+
+	try {
+		if (Auth::attempt($user)) {
+			return Response::json(array('return' => true, 'idFuncionario' => Auth::user()->id));
+		}
+	} catch (UserDeletedException $e) {
+		return Response::json(array('return' => false));
+	}
+
+	return Response::json(array('return' => false));
+}
+);
 // End Login
 
 // ===============================================
@@ -87,6 +102,10 @@ Route::group(array('before' => 'auth'), function () {
     // Start Orders
     Route::resource('orders', 'OrdersController');
     // End Orders
+
+    // Start Orders
+    Route::resource('verify_command', 'VerifyCommandController');
+    // End Orders
     
     //start custumers 
     Route::resource('customers', 'CustomersController');
@@ -97,7 +116,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('associate/getCustomersByName', 'AssociateController@getCustomersByName');
     //end associate
 
-    // Start Orders
+    // Start Autocomplete
     Route::get('autocomplete/products', 'AutocompleteController@products');
-    // End Orders
+    Route::get('autocomplete/comands', 'AutocompleteController@comands');
+    // End Autocomplete
 });

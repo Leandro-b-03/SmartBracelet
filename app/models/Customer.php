@@ -13,4 +13,9 @@
 	    {
 	        return $this->hasMany('Bracelet', 'id_bracelet');
 	    }
+
+		public function customer_bracelet()
+	    {
+	        return $this->hasMany('CustomerBracelet', 'id_customer');
+	    }
 	}

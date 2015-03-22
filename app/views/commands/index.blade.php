@@ -29,7 +29,7 @@
                     @foreach ($commands as $command)
                     <tr>
                         <td>{{ $command->tag }}</td>
-                        <td>{{ $command->color }}</td>
+                        <td>{{ ($command->color == 1 ? 'Vermelho' : 'Verde') }}</td>
                         <td>{{ Form::open(array('url' => 'commands/' . $command->id, 'class' => '')) }}
                                 {{ Form::hidden('_method', 'DELETE') }}
                                 <a class="btn btn-primary" href="{{ URL::to('commands/' . $command->id . '/edit') }}">
