@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html data-ng-app='consultBracelet'>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title></title>
+        <!-- compiled css output -->
+        <link href="css/ionic.app.css" rel="stylesheet">
+        
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+        <!-- angular nfc -->
+        <script src="lib/ngCordova-nfc/nfc.js"></script>
+        <!-- your app's js -->
+        <script src="/js/functions.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/services.js"></script>
+    </head>
+    <body>
+        <!--
+        The nav bar that will be updated as we navigate between views.
+        -->
+        <ion-nav-bar class='bar-positive'>
+            <ion-nav-back-button class="button-clear">
+                <i class="ion-arrow-left-c"></i> Back
+            </ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-view animation="slide-left-right"></ion-nav-view>
+        <script type="text/ng-template" id="main.html">
+            <ion-view title="Consulta de comanda">
+                <ion-content>
+                    <div class="item item-image item-logo">
+                        <img src="img/logo.png">
+                    </div>
+                    <label class="item item-message">
+                        <h2>
+                                Digite seu CPF ou aproxime o celular de sua pulseira.
+                        </h2>
+                    </label>
+                    <div class="item item-input-inset btn-group-cfp">
+                        <label class="item item-input input-cpf" id="input-cpf">
+                            <span class="input-label">CPF</span>
+                            <input type="text" ng-model="inputs.cpf" value="{{inputs.cpf}}" placeholder="Busca por cpf">
+                        </label>
+                        <button class="button btn-cpf" id="btn-cpf" ng-click="getComandaByCpf(inputs.cpf)">
+                            Enviar
+                        </button>
+                    </div>
+                </ion-content>
+            </ion-view>
+        </script>
+
+        <script type="text/ng-template" id="total.html">
+          <ion-view title="Total da comanda">
+            <ion-content>
+                <div class="card">
+                    <div class="item item-divider">
+                        <h2> {{data.name}} </h2>
+                    </div>
+                  <div class="item item-text-wrap">
+                    <h1>{{data.amount}}</h1>
+                    <button class="button button-block button-balanced" ng-click="getComandaCompleta(data.id_order)">
+                        Veja completo
+                    </button>
+                  </div>
+                </div>
+            </ion-content>
+          </ion-view>
+        </script>
+
+        <script type="text/ng-template" id="description.html">
+          <ion-view title="Descrição da comanda">
+            <ion-content>
+                 
+            </ion-content>
+          </ion-view>
+        </script>
+        <ion-footer-bar align-title="left" class="bar-positive">
+          <h1 class="title">App para consulta de comandas</h1>
+        </ion-footer-bar>
+        <script>
+            var App = App || {};
+            App.webService = 'http://webappservice.someideias.com';
+        </script>
+    </body>
+</html>

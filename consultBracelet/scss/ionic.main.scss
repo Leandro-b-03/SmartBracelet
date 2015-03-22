@@ -1,0 +1,42 @@
+.item-logo{
+	width: 40%;
+	position: relative;
+	left:30%;
+	height: 50%;
+	margin: 2% 0%;
+	border-color:#ffffff;
+}
+
+.item-message {
+	h2{
+		white-space: normal;
+	}
+}
+
+.btn-group-cfp{
+	.input-cpf{
+		width: 80%;
+	}
+	.btn-cpf{
+		width: 20%;
+		font-size: 2vw;
+		padding-left: 1%;
+		padding-right: 1%;
+		height: 49px;
+	}
+}
+
+label.item.has-error {  
+  border: 1px solid rgba(248,25,48,0.6);
+}
+.loading-container{
+	.loading{
+		padding: 5px;
+		.icon{
+			&:before{
+				font-size: 50px;
+			}
+		}
+	}
+}
+
