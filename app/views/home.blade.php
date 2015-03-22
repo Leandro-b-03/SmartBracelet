@@ -34,7 +34,8 @@
                     <div class="control-group">
                         <label for="status" class="control-label span4">Comanda</label>
                         <div class="controls span8">
-                        {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
+                        {{ Form::text('bracelet', "", array('id' => 'autocomplete')); }}
+                        {{ Form::hidden('id_bracelet', "", array('id' => 'id_bracelet')) }}
                         </div>
                     </div>
                     {{ Form::submit('Vincular', array("class" => "btn btn-primary")) }}
@@ -135,29 +136,71 @@
 @stop
 
 @section('scripts')
-        @if (Session::has('flash_error'))
-        <script type="text/javascript">
-            $(function(){
-                new PNotify({
-                    title: 'Erro',
-                    text: '{{ Session::get('flash_error') }}',
-                    type: 'error',
-                    styling: 'fontawesome'
-                });
-            });
-        </script>
-        @endif
+    {{ HTML::script('library/javascripts/jQuery-Autocomplete/dist/jquery.autocomplete.js'); }}
 
-        @if (Session::has('flash_notice'))
-        <script type="text/javascript">
-            $(function(){
-                new PNotify({
-                    title: 'Sucesso',
-                    text: '{{ Session::get('flash_notice') }}',
-                    type: 'success',
-                    styling: 'fontawesome'
-                });
+    <script>
+        $(function($){
+            var comand = null;
+
+            $('#autocomplete').autocomplete({
+                serviceUrl: '/autocomplete/comands',
+                onSelect: function (suggestion) {
+                    comand = suggestion.data.id;
+
+                    $('#id_bracelet').val(comand);
+                }
             });
-        </script>
-        @endif
+        });
+
+        setInterval(ajaxCall, 1000);
+
+        function ajaxCall() {
+            $.ajax({
+                url: "/general/getComand",
+                method: "get",
+                data: "id_user=" + {{ Auth::user()->id }},
+                success: function(data) {
+                    if (data.error) {
+                        new PNotify({
+                            title: 'Erro',
+                            text: data.error,
+                            type: 'error',
+                            styling: 'fontawesome'
+                            });
+                    } else {
+                        comand = data.bracelet.id;
+    
+                        $('#autocomplete').val(data.bracelet.tag);
+                        $('#id_bracelet').val(comand);
+                    }
+                }
+            });
+        }
+    </script>
+
+    @if (Session::has('flash_error'))
+    <script type="text/javascript">
+        $(function(){
+            new PNotify({
+                title: 'Erro',
+                text: '{{ Session::get('flash_error') }}',
+                type: 'error',
+                styling: 'fontawesome'
+            });
+        });
+    </script>
+    @endif
+
+    @if (Session::has('flash_notice'))
+    <script type="text/javascript">
+        $(function(){
+            new PNotify({
+                title: 'Sucesso',
+                text: '{{ Session::get('flash_notice') }}',
+                type: 'success',
+                styling: 'fontawesome'
+            });
+        });
+    </script>
+    @endif
 @stop

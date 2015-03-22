@@ -49,7 +49,7 @@
                         <div class="control-group">
                             <label for="status" class="control-label span4">Comanda</label>
                             <div class="controls span8">
-                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
+                            {{ Form::select('id_bracelet', $data['order'], (isset($data['order']) ? $data['order']->id_bracelet : "")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->

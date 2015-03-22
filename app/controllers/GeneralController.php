@@ -121,4 +121,32 @@ class GeneralController extends \BaseController {
 	}
 
 
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getComand()
+	{
+		$user_bracelet = UserBracelet::where('id_user', Input::get('id_user'))->where('status', -1)->get()->first();
+
+		if($user_bracelet){
+			$bracelet = Bracelet::where('tag', $user_bracelet->tag)->get()->first();
+
+			$jsonSerialize = array();
+
+			if ($bracelet) {
+				$jsonSerialize['bracelet'] = $bracelet;
+
+				$user_bracelet->status = 1;
+				$user_bracelet->save();
+			} else {
+				$jsonSerialize['error'] = 'Comanda não cadastrada.';
+			}
+
+			return Response::json($jsonSerialize);
+		}
+	}
+
 }

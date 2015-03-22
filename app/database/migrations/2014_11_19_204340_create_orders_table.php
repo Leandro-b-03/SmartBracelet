@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration {
 
 			$table->integer('id_user')->references('id')->on('users');
 			$table->integer('id_customer')->references('id')->on('customers');
+			$table->integer('id_bracelet')->references('id')->on('bracelets');
 			$table->float('discount');
 			$table->float('amount');
 			$table->string('order_number', 255);
