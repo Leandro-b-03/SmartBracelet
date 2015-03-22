@@ -258,6 +258,9 @@
                 <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
+                <li class="{{ Request::is('verify_command') ? 'active' : '' }}">
+                    <a href="{{ URL::to('verify_command') }}"><span class="fa fa-edit"></span>Verificar Comanda</a>
+                </li>
             </ul>
         </div>
         <div class="icon-caret-down"></div>

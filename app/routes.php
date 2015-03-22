@@ -53,7 +53,7 @@ Route::post('reminder', 'RemindersController@postRemind');
 Route::get('password/reset/{token}', 'RemindersController@getReset');
 Route::post('password/reset/{token}', 'RemindersController@postReset');
 
-Route::post('app/login', function () {
+Route::get('app/login', function () {
 	$user = array(
 		'username' => Input::get('username'),
 		'password' => Input::get('password')

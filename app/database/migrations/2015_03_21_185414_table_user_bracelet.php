@@ -20,7 +20,7 @@ class TableUserBracelet extends Migration {
 			$table->increments('id');
 
 			$table->integer('id_user')->references('id')->on('users');
-			$table->integer('id_bracelet')->references('id')->on('bracelets');
+			$table->string('tag', 255);
 			$table->boolean('status');
 
 			$table->timestamps();

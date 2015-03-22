@@ -51,7 +51,7 @@
                     <div class="rounded-borders">
                         <div class="counter small">
                             <span>
-                            {{ count($data['bracelets']) }}
+                            {{ $data['bracelets_total'] }}
                             </span>
                         </div>
                         <div class="counter-label">
@@ -62,7 +62,7 @@
                     <div class="rounded-borders">
                         <div class="counter small">
                             <span>
-                            {{ count($data['bracelets']) }}
+                            {{ $data['bracelets_total'] - count($data['bracelets']) }}
                             </span>
                         </div>
                         <div class="counter-label">
@@ -73,7 +73,7 @@
                     <div class="rounded-borders">
                         <div class="counter small">
                             <span>
-                            {{ count($data['customers']) }}
+                            {{ $data['customers_total'] }}
                             </span>
                         </div>
                         <div class="counter-label">
@@ -84,38 +84,52 @@
                     <div class="rounded-borders">
                         <div class="counter small">
                             <span>
-                            {{ count($data['customers']) }}
+                            {{ $data['customers_total'] - count($data['customers']) }}
                             </span>
                         </div>
                         <div class="counter-label">
                             Clientes Ativos
                         </div>
                     </div>
-                    
-                    <div class="rounded-borders">
-                        <div class="counter small">
-                            <span>
-                            14
-                            </span>
-                        </div>
-                        <div class="counter-label">
-                            Pending Comments
-                        </div>
-                    </div>
-                    
-                    <div class="rounded-borders">
-                        <div class="counter small">
-                            <span>
-                            11
-                            </span>
-                        </div>
-                        <div class="counter-label">
-                            Support Requests
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- / Daily statistics -->
+        </section>
+        <section class="row-fluid">
+            <div class="span8">
+                <h3 class="box-header">
+                    <i class="fa fa-user"></i>
+                    Clientes vinculados
+                </h3>
+
+                <div class="box">
+                    <table class="table table-bordered datagrid">
+                        <thead>
+                            <th>Usuário</th>
+                            <th>Comanda</th>
+                            <th>Ação</th>
+                        </thead>
+                        @if ($data['customer_bracelets']->count() > 0)
+                        <tbody>
+                            @foreach ($data['customer_bracelets'] as $customer_bracelet)
+                            <tr>
+                                <td>{{ $customer_bracelet->customer()->first()->name }}</td>
+                                <td>{{ $customer_bracelet->bracelet()->first()->tag . ' - ' . ($customer_bracelet->bracelet()->first()->color == 1 ? 'Vermelho' : 'Verde') }}</td>
+                                <td>{{ Form::open(array('url' => 'commands/' . $customer_bracelet->id, 'class' => '')) }}
+                                        {{ Form::hidden('_method', 'DELETE') }}
+                                        <a class="btn btn-primary" href="{{ URL::to('commands/' . $customer_bracelet->id . '/edit') }}">
+                                            <i class="fa fa-pencil"></i>
+                                            Editar
+                                        </a>
+                                        {{ HTML::decode(Form::button('<i class="fa fa-close"></i> Deletar', array("class" => "btn btn-danger", "type" => "submit"))) }}
+                                    {{ Form::close() }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
+                    </table>
+                </div>
+            </div>
         </section>
         <!-- / Server statistics -->
 @stop

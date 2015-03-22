@@ -23,23 +23,31 @@ class HomeController extends BaseController {
 
         $data['customers'] = array();
 
+        $data['customers_total'] = $customers->count();
+
         foreach ($customers as $customer) {
-            d($customer);
-            d($customer->customer_bracelet()); die();
-            if ($customer->customer_bracelet()->status != 1)
+            $customer_bracelet = $customer->customer_bracelet()->first();
+
+            if (!$customer_bracelet) {
                 $data['customers'][$customer->id] = $customer->name;
+            }
         }
 
         $bracelets = Bracelet::all();
 
         $data['bracelets'] = array();
 
+        $data['bracelets_total'] = $bracelets->count();
+
         foreach ($bracelets as $bracelet) {
-            if ($bracelet->customer_bracelet()->status != 1)
+            $customer_bracelet = $bracelet->customer_bracelet()->first();
+            if (!$customer_bracelet)
                 $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' . ($bracelet->color == 1 ? 'Vermelho' : 'Verde');
         }
 
         $data['order_bracelets'] = OrderBracelet::where('id_order', '0')->get();
+
+        $data['customer_bracelets'] = CustomerBracelet::all();
 
         return View::make('home')->with('data', $data);
     }
@@ -68,13 +76,13 @@ class HomeController extends BaseController {
             DB::commit();
 
             // redirect
-            return Redirect::to('commands')->with('flash_notice', 'Pulseira criada com sucesso!');
+            return Redirect::to('home')->with('flash_notice', 'Vinculo criado com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::route('commands.create')->with('flash_error', 'Ocorreu um erro ao criar a pulseira.')->withInput();
+            return Redirect::route('home')->with('flash_error', 'Não foi possivel criar vinculo!')->withInput();
         }
     }
 
