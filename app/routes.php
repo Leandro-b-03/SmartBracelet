@@ -116,7 +116,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('associate/getCustomersByName', 'AssociateController@getCustomersByName');
     //end associate
 
-    // Start Orders
+    // Start Autocomplete
     Route::get('autocomplete/products', 'AutocompleteController@products');
-    // End Orders
+    Route::get('autocomplete/comands', 'AutocompleteController@comands');
+    // End Autocomplete
 });

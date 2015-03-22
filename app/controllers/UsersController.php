@@ -11,10 +11,6 @@ class UsersController extends \BaseController {
     {
         $users = User::all();
 
-        d($users);
-
-        die;
-
         return View::make('users.index')->with('users', $users);
     }
 

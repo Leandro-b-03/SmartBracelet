@@ -13,14 +13,16 @@
     <h3 class="box-header">Pedidos</h3>
     <div class="box">
         <div class="body">
+            {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "verify_command")) }}
             <div class="control-group">
                 <label for="status" class="control-label span4">Codigo da comanda:</label>
                 <div class="controls span8">
-                {{ Form::text('id_bracelet', ""); }}
+                {{ Form::text('id_bracelet', "", array('id' => 'autocomplete')); }}
                 {{ Form::submit('Pesquisar Comanda', array("class" => "btn btn-primary")) }}
                 </div>
             </div>
             <p>Por favor, aproxime a comanda do leitor! Caso necessario informe o codigo da comanda e clique no botão "Pesquisar Comanda".
+            {{ Form::close() }}
         </div>
     </div>
 </div>
@@ -28,6 +30,20 @@
 
 @section('scripts')
     {{ HTML::script('library/javascripts/jasny-bootstrap/js/jasny-bootstrap.min.js'); }}
+    {{ HTML::script('library/javascripts/jQuery-Autocomplete/dist/jquery.autocomplete.js'); }}
+
+    <script>
+        $(function($){
+            var comand = null;
+
+            $('#autocomplete').autocomplete({
+                serviceUrl: '/autocomplete/comands',
+                onSelect: function (suggestion) {
+                    comand = suggestion.data;
+                }
+            });
+        });
+    </script>
 
     @if (Session::has('flash_error'))
     <script type="text/javascript">
