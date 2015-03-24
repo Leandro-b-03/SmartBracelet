@@ -46,6 +46,32 @@
                     $('#verify').attr('action', '{{ URL::to("verify_command") }}' + '/' + comand + '/edit');
                 }
             });
+
+            setInterval(ajaxCall, 1000);
+
+            function ajaxCall() {
+                $.ajax({
+                    url: "/general/getComand",
+                    method: "get",
+                    data: "id_user=" + {{ Auth::user()->id }},
+                    success: function(data) {
+                        if (data.error) {
+                            new PNotify({
+                                title: 'Erro',
+                                text: data.error,
+                                type: 'error',
+                                styling: 'fontawesome'
+                                });
+                        } else {
+                            comand = data.bracelet.id;
+        
+                            $('#autocomplete').val(data.bracelet.tag);
+                            $('#id_bracelet').val(comand);
+                            $('#verify').attr('action', '{{ URL::to("verify_command") }}' + '/' + comand + '/edit');
+                        }
+                    }
+                });
+            }
         });
     </script>
 

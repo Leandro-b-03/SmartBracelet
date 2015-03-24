@@ -37,24 +37,30 @@ class CommandsController extends \BaseController {
         try
         {
             DB::beginTransaction();
+
+            $verify_bracelet = Bracelet::where('tag', Input::get('tag'))->get();
             
-            $bracelet = new Bracelet;
+            if (!$verify_bracelet ->count()) {
+                $bracelet = new Bracelet;
 
-            $bracelet->tag       = Input::get('tag');
-            $bracelet->color     = Input::get('color');
+                $bracelet->tag       = Input::get('tag');
+                $bracelet->color     = Input::get('color');
 
-            $bracelet->save();
+                $bracelet->save();
+            } else {
+                return Redirect::route('commands.create')->with('flash_error', 'Tag já cadastrada.')->withInput();
+            }
 
             DB::commit();
 
             // redirect
-            return Redirect::to('commands')->with('flash_notice', 'Pulseira criada com sucesso!');
+            return Redirect::to('commands')->with('flash_notice', 'Comanda criada com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::route('commands.create')->with('flash_error', 'Ocorreu um erro ao criar a pulseira.')->withInput();
+            return Redirect::route('commands.create')->with('flash_error', 'Ocorreu um erro ao criar a comanda.')->withInput();
         }
     }
 
@@ -105,21 +111,27 @@ class CommandsController extends \BaseController {
 
             DB::beginTransaction();
 
-            $bracelet->tag       = Input::get('tag');
-            $bracelet->color     = Input::get('color');
+            $verify_bracelet = Bracelet::where('tag', Input::get('tag'))->get()->first();
+            
+            if ($verify_bracelet->id == $bracelet->id) {
+                $bracelet->tag       = Input::get('tag');
+                $bracelet->color     = Input::get('color');
 
-            $bracelet->save();
+                $bracelet->save();
+            } else {
+                return Redirect::route('commands.create')->with('flash_error', 'Tag já cadastrada.')->withInput();
+            }
 
             DB::commit();
 
             // redirect
-            return Redirect::to('commands')->with('flash_notice', 'Pulseira alterada com sucesso!');
+            return Redirect::to('commands')->with('flash_notice', 'Comanda alterada com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::to('commands/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar a pulseira.')->withInput();
+            return Redirect::to('commands/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar a comanda.')->withInput();
         }
     }
 
@@ -144,13 +156,13 @@ class CommandsController extends \BaseController {
             DB::commit();
 
             // redirect
-            return Redirect::to('commands')->with('flash_notice', 'Pulseira deletado com sucesso!');
+            return Redirect::to('commands')->with('flash_notice', 'Comanda deletado com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::to('commands')->with('flash_error', 'Erro ao tentar deletar a pulseira!');
+            return Redirect::to('commands')->with('flash_error', 'Erro ao tentar deletar a comanda!');
         }
     }
 

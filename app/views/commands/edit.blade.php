@@ -21,7 +21,7 @@
 					<div class="control-group">
 						<label for="tag" class="control-label span4">TAG</label>
 						<div class="controls span8">
-		                {{ Form::text('tag', (isset($data['bracelet']) ? $data['bracelet']->tag : ""), array("class" => "form-control", "required")) }}
+		                {{ Form::text('tag', (isset($data['bracelet']) ? $data['bracelet']->tag : ""), array("class" => "form-control", "required", 'id' => 'tag')) }}
 						</div>
 					</div>
 					<!-- /.control-group -->
@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					{{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
-					<a class="btn btn-danger" href="{{ URL::to('products') }}">Voltar</a>
+					<a class="btn btn-danger" href="{{ URL::to('commands') }}">Voltar</a>
 				{{ Form::close() }}
 			</div>
 		</div>
@@ -56,6 +56,30 @@
 
 			$('#price').maskMoney();
 		});
+
+        setInterval(ajaxCall, 1000);
+
+        function ajaxCall() {
+            $.ajax({
+                url: "/general/getComand",
+                method: "get",
+                data: "new=true&id_user=" + {{ Auth::user()->id }},
+                success: function(data) {
+                    if (data.error) {
+                        new PNotify({
+                            title: 'Erro',
+                            text: data.error,
+                            type: 'error',
+                            styling: 'fontawesome'
+                            });
+                    } else {
+                        comand = data.bracelet.tag;
+    
+                        $('#tag').val(data.bracelet.tag);
+                    }
+                }
+            });
+        }
 	</script>
 
     @if (Session::has('flash_error'))

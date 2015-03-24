@@ -49,7 +49,7 @@
                         <div class="control-group">
                             <label for="status" class="control-label span4">Comanda</label>
                             <div class="controls span8">
-                            {{ Form::select('id_bracelet', $data['order'], (isset($data['order']) ? $data['order']->id_bracelet : "")); }}
+                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['order']) ? $data['order']->id_bracelet : "")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->
@@ -62,17 +62,10 @@
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
-                            <label for="discount" class="control-label span4">Desconto</label>
-                            <div class="controls span8">
-                            {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price")) }}
-                            </div>
-                        </div>
-                        <!-- /.control-group -->
-                        <div class="control-group">
                             <label for="status" class="control-label span4">Status</label>
                             <div class="controls span8">
                             {{ Form::select('status',
-                                    array('1' => 'Ativado', '0' => 'Destivado'), (isset($data['product']) ? $data['product']->status : "")
+                                    array('1' => 'Aberto', '2' => 'Pago'), (isset($data['product']) ? $data['product']->status : "")
                                 );
                             }}
                             </div>
@@ -80,7 +73,7 @@
                     </div>
                     <div id="product" class="tab-pane">
                         <div class="control-group">
-                            <label for="order_number" class="control-label span4">Número do pedido</label>
+                            <label for="order_number" class="control-label span4">Nome do produto</label>
                             <div class="controls span8">
                                 <input id="autocomplete" type="text" class="form-control" value="" /> <a id="add-product" class="btn btn-green">Adicionar</a>
                             </div>

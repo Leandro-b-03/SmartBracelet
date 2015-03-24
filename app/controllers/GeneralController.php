@@ -130,22 +130,33 @@ class GeneralController extends \BaseController {
 	public function getComand()
 	{
 		$user_bracelet = UserBracelet::where('id_user', Input::get('id_user'))->where('status', -1)->get()->first();
+		
+		if ($user_bracelet) {
+			if (!Input::get('new')) {
+				$bracelet = Bracelet::where('tag', $user_bracelet->tag)->get()->first();
 
-		if($user_bracelet){
-			$bracelet = Bracelet::where('tag', $user_bracelet->tag)->get()->first();
+				$jsonSerialize = array();
 
-			$jsonSerialize = array();
+				if ($bracelet) {
+					$jsonSerialize['bracelet'] = $bracelet;
 
-			if ($bracelet) {
-				$jsonSerialize['bracelet'] = $bracelet;
+					$user_bracelet->status = 1;
+					$user_bracelet->save();
+				} else {
+					$jsonSerialize['error'] = 'Comanda não cadastrada.';
+				}
+
+				return Response::json($jsonSerialize);
+			} else {
+				$jsonSerialize = array();
 
 				$user_bracelet->status = 1;
 				$user_bracelet->save();
-			} else {
-				$jsonSerialize['error'] = 'Comanda não cadastrada.';
-			}
 
-			return Response::json($jsonSerialize);
+				$jsonSerialize['bracelet'] = array('tag' => $user_bracelet->tag);
+
+				return Response::json($jsonSerialize);
+			}
 		}
 	}
 

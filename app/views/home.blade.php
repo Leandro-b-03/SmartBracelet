@@ -116,14 +116,12 @@
                             <tr>
                                 <td>{{ $customer_bracelet->customer()->first()->name }}</td>
                                 <td>{{ $customer_bracelet->bracelet()->first()->tag . ' - ' . ($customer_bracelet->bracelet()->first()->color == 1 ? 'Vermelho' : 'Verde') }}</td>
-                                <td>{{ Form::open(array('url' => 'commands/' . $customer_bracelet->id, 'class' => '')) }}
-                                        {{ Form::hidden('_method', 'DELETE') }}
-                                        <a class="btn btn-primary" href="{{ URL::to('commands/' . $customer_bracelet->id . '/edit') }}">
-                                            <i class="fa fa-pencil"></i>
-                                            Editar
-                                        </a>
-                                        {{ HTML::decode(Form::button('<i class="fa fa-close"></i> Deletar', array("class" => "btn btn-danger", "type" => "submit"))) }}
-                                    {{ Form::close() }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{ URL::to('verify_command/' . $customer_bracelet->bracelet()->first()->id . '/edit') }}">
+                                        <i class="fa fa-pencil"></i>
+                                        Editar
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

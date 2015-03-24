@@ -9,9 +9,9 @@ class VerifyCommandController extends \BaseController {
      */
     public function index()
     {
-        $orders = Order::all();
+        $verify_command = Order::all();
 
-        return View::make('verify.index')->with('orders', $orders);
+        return View::make('verify.index')->with('verify_command', $verify_command);
     }
 
 
@@ -98,7 +98,7 @@ class VerifyCommandController extends \BaseController {
             DB::commit();
 
             // redirect
-            return Redirect::to('orders')->with('flash_notice', 'Pedido inserido com sucesso!')->with('products', $data['order_bracelets'] = $products);
+            return Redirect::to('verify_command')->with('flash_notice', 'Pedido inserido com sucesso!')->with('products', $data['order_bracelets'] = $products);
         }
         catch (Exception $e)
         {
@@ -140,31 +140,34 @@ class VerifyCommandController extends \BaseController {
             $data['users'][] = array($user->id => $user->name);
         }
 
-        $order = Order::findOrFail($id);
+        // $order = Order::findOrFail($id);
+        $order = Order::where('id_bracelet', $id)->where('status', 1)->get()->first();
 
-        $data['order'] = $order;
+        if ($order) {
+            $data['order'] = $order;
 
-        $customers = Customer::all();
+            $customers = Customer::all();
 
-        $data['customers'] = array();
+            $data['customers'] = array();
 
-        foreach ($customers as $customer) {
-            $data['customers'][$customer->id] = $customer->name;
+            foreach ($customers as $customer) {
+                $data['customers'][$customer->id] = $customer->name;
+            }
+
+            $bracelets = Bracelet::all();
+
+            $data['bracelets'] = array();
+
+            foreach ($bracelets as $bracelet) {
+                $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' . ($bracelet->color == 1 ? 'Vermelho' : 'Verde');
+            }
+
+            $data['order_bracelets'] = OrderBracelet::where('id_order', $order->id)->get();
+
+            return View::make('verify.edit')->with('data', $data);
+        } else {
+            return Redirect::to('verify_command')->with('flash_error', 'Comanda não vinculada a nenhum pedido!');
         }
-
-        $bracelets = Bracelet::all();
-
-        $data['bracelets'] = array();
-
-        foreach ($bracelets as $bracelet) {
-            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
-        }
-
-        $data['order_bracelets'] = OrderBracelet::where('id_order', $id)->get();
-
-        $data['bracelet_id'] = $data['order_bracelets']->first()->id_bracelet;
-
-        return View::make('verify.edit')->with('data', $data);
     }
 
 
@@ -177,18 +180,12 @@ class VerifyCommandController extends \BaseController {
     public function update($id)
     {
         //
+        $order = Order::findOrFail($id);
         try
         {
-            $order = Order::findOrFail($id);
-
             DB::beginTransaction();
-
-            $order->order_number = Input::get('order_number');
-            $order->id_user      = Input::get('id_user');
-            $order->id_customer  = Input::get('id_customer');
-            $id_bracelet         = Input::get('id_bracelet');
             $order->amount       = Input::get('amount');
-            $order->discount     = Input::get('discount');
+            $order->discount     = 0; // Input::get('discount');
             $order->status       = Input::get('status');
             $products            = Input::get('products');
 
@@ -197,11 +194,13 @@ class VerifyCommandController extends \BaseController {
             OrderBracelet::where('id_order', $id)->delete();
 
             foreach ($products as $key => $values) {
+                // die(d($values));
+
                 $order_bracelet = New OrderBracelet;
 
                 $order_bracelet->id_order    = $order->id;
                 $order_bracelet->id_product  = $key;
-                $order_bracelet->id_bracelet = $id_bracelet;
+                $order_bracelet->id_bracelet = $order->id_bracelet;
                 $order_bracelet->quantity    = $values['quantity'][0];
                 $order_bracelet->price       = $values['price'][0];
 
@@ -210,16 +209,26 @@ class VerifyCommandController extends \BaseController {
                 $order_bracelet = null;
             }
 
+            if ($order->status == 2) {
+                $customer_bracelet = CustomerBracelet::where('id_bracelet', $order->id_bracelet)->where('status', 1)->get()->first();
+
+                $customer_bracelet->status = 2;
+
+                $customer_bracelet->save();
+            }
+
             DB::commit();
 
             // redirect
-            return Redirect::to('orders')->with('flash_notice', 'Pedido alterada com sucesso!');
+            return Redirect::to('verify_command')->with('flash_notice', 'Pedido alterada com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
+
+            die(d($e));
             
-            return Redirect::route('orders/' . $id . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
+            return Redirect::to('verify_command/' . $order->id_bracelet . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
         }
     }
 
@@ -244,13 +253,13 @@ class VerifyCommandController extends \BaseController {
             DB::commit();
 
             // redirect
-            return Redirect::to('orders')->with('flash_notice', 'Pedido deletado com sucesso!');
+            return Redirect::to('verify_command')->with('flash_notice', 'Pedido deletado com sucesso!');
         }
         catch (Exception $e)
         {
             DB::rollback();
             
-            return Redirect::to('orders')->with('flash_error', 'Erro ao tentar deletar o pedido!');
+            return Redirect::to('verify_command')->with('flash_error', 'Erro ao tentar deletar o pedido!');
         }
     }
 

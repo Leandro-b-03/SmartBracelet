@@ -37,15 +37,13 @@
                         <td>{{ $order->customer->name }}</td>
                         <td>R$ {{ number_format ($order->amount, 2) }}</td>
                         <td>{{ $order->discount }}</td>
-                        <td>{{ ($order->status ? 'Ativo' : 'Não Ativo') }}</td>
-                        <td>{{ Form::open(array('url' => 'orders/' . $order->id, 'class' => '')) }}
-                                {{ Form::hidden('_method', 'DELETE') }}
-                                <a class="btn btn-primary" href="{{ URL::to('orders/' . $order->id . '/edit') }}">
-                                    <i class="fa fa-pencil"></i>
-                                    Editar
-                                </a>
-                                {{ HTML::decode(Form::button('<i class="fa fa-close"></i> Deletar', array("class" => "btn btn-danger", "type" => "submit"))) }}
-                            {{ Form::close() }}</td>
+                        <td>{{ ($order->status == 1 ? 'Aberto' : 'Pago') }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ URL::to('orders/' . $order->id . '/edit') }}">
+                                <i class="fa fa-pencil"></i>
+                                Editar
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

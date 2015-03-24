@@ -13,43 +13,26 @@
     <h3 class="box-header">Pedidos</h3>
     <div class="box">
             <div class="body">
-                @if(Request::is('orders/create'))
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "orders")) }}
-                @else
-                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('orders.update', $data['order']->id))) }}
-                @endif
-                    <div>
-                        <ul id="tabs" class="nav nav-tabs">
-                            <li class="active"><a href="#general" data-toggle="tab">Geral</a></li>
-                            <li><a href="#product" data-toggle="tab">Produtos</a></li>
-                        </ul>
-                    </div>
+                {{ Form::open(array("role" => "form", "class" => "form-horizontal", 'method' => 'PUT', "route" => array('verify_command.update', $data['order']->id))) }}
                     <div id="general" class="tab-pane active">
                         <div class="control-group">
                             <label for="order_number" class="control-label span4">Número do pedido</label>
                             <div class="controls span8">
-                            {{ Form::text('order_number', (isset($data['order']) ? $data['order']->order_number : ""), array("class" => "form-control", "required")) }}
-                            </div>
-                        </div>
-                        <!-- /.control-group -->
-                        <div class="control-group">
-                            <label for="status" class="control-label span4">Funcionario/Usuário</label>
-                            <div class="controls span8">
-                            {{ Form::select('id_user', $data['users'], (isset($data['order']) ? $data['order']->user->id : "")); }}
+                            {{ Form::text('order_number', (isset($data['order']) ? $data['order']->order_number : ""), array("class" => "form-control", "required", "disabled")) }}
                             </div>
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
                             <label for="status" class="control-label span4">Cliente</label>
                             <div class="controls span8">
-                            {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : "")); }}
+                            {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : ""), array("disabled")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
                             <label for="status" class="control-label span4">Comanda</label>
                             <div class="controls span8">
-                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : "")); }}
+                            {{ Form::select('id_bracelet', $data['bracelets'], (isset($data['bracelet_id']) ? $data['bracelet_id'] : ""), array("disabled")); }}
                             </div>
                         </div>
                         <!-- /.control-group -->
@@ -60,27 +43,19 @@
                             {{ Form::hidden('amount', (isset($data['order']) ? $data['order']->amount : ""), array("id" => "pricea")) }}
                             </div>
                         </div>
-                        <!-- /.control-group -->
-                        <div class="control-group">
-                            <label for="discount" class="control-label span4">Desconto</label>
-                            <div class="controls span8">
-                            {{ Form::text('discount', (isset($data['order']) ? $data['order']->discount : ""), array("class" => "form-control price")) }}
-                            </div>
                         </div>
                         <!-- /.control-group -->
                         <div class="control-group">
                             <label for="status" class="control-label span4">Status</label>
                             <div class="controls span8">
                             {{ Form::select('status',
-                                    array('1' => 'Ativado', '0' => 'Destivado'), (isset($data['product']) ? $data['product']->status : "")
+                                    array('1' => 'Aberto', '2' => 'Pago'), (isset($data['product']) ? $data['product']->status : "")
                                 );
                             }}
                             </div>
                         </div>
-                    </div>
-                    <div id="product" class="tab-pane">
                         <div class="control-group">
-                            <label for="order_number" class="control-label span4">Número do pedido</label>
+                            <label for="order_number" class="control-label span4">Nome do produto</label>
                             <div class="controls span8">
                                 <input id="autocomplete" type="text" class="form-control" value="" /> <a id="add-product" class="btn btn-green">Adicionar</a>
                             </div>
@@ -108,7 +83,7 @@
                         </div>
                     </div>
                     {{ Form::submit('Salvar', array("class" => "btn btn-primary")) }}
-                    <a class="btn btn-danger" href="{{ URL::to('orders') }}">Voltar</a>
+                    <a class="btn btn-danger" href="{{ URL::to('verify_command') }}">Voltar</a>
                 {{ Form::close() }}
             </div>
         </div>

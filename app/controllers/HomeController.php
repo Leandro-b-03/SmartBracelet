@@ -28,7 +28,7 @@ class HomeController extends BaseController {
         foreach ($customers as $customer) {
             $customer_bracelet = $customer->customer_bracelet()->first();
 
-            if (!$customer_bracelet) {
+            if ($customer_bracelet->status != 1) {
                 $data['customers'][$customer->id] = $customer->name;
             }
         }
@@ -84,8 +84,8 @@ class HomeController extends BaseController {
 
                 $order->order_number = $unique;
                 $order->id_user      = Auth::user()->id;
-                $order->id_customer  = Input::get('id_customer');
-                $order->id_bracelet  = Input::get('id_bracelet');
+                $order->id_customer  = $customer_bracelet->id_customer;
+                $order->id_bracelet  = $customer_bracelet->id_bracelet;
                 $order->amount       = 0;
                 $order->discount     = 0;
                 $order->status       = 1;

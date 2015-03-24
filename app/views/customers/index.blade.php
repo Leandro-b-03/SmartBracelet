@@ -36,14 +36,11 @@
                         <td>{{ $customer->cpf }}</td>
                         <td>{{ $customer->birthday }}</td>
                         <td>
-                            {{ Form::open(array('method' => 'DESTROY', "url" => array('customers', $customer->id))) }}
-                                {{ Form::hidden('_method', 'DELETE') }}
-                                <a class="btn btn-primary" href="{{ URL::to('customers/' . $customer->id . '/edit') }}">
-                                    <i class="fa fa-pencil"></i>
-                                    Editar
-                                </a>
-                                {{ HTML::decode(Form::button('<i class="fa fa-close"></i> Deletar', array("class" => "btn btn-danger", "type" => "submit"))) }}
-                            {{ Form::close() }}</td>
+                            <a class="btn btn-primary" href="{{ URL::to('customers/' . $customer->id . '/edit') }}">
+                                <i class="fa fa-pencil"></i>
+                                Editar
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
