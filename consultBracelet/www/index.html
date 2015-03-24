@@ -73,7 +73,16 @@
         <script type="text/ng-template" id="description.html">
           <ion-view title="Descrição da comanda">
             <ion-content>
-                 
+                    <div class="descricao list card">
+                        <div class="item row" ng-repeat="produto in produtos">
+                            <div class="col col-50">{{produto.name}}</div>
+                            <div class="col-20">{{produto.quantity}}</div>
+                            <div class="col-33">{{produto.price}}</div>
+                        </div>
+                    </div>
+                    <a href="#home" class="button button-block button-balanced" >
+                        Voltar
+                    </a>
             </ion-content>
           </ion-view>
         </script>
