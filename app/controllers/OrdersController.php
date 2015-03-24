@@ -45,7 +45,7 @@ class OrdersController extends \BaseController {
         $data['bracelets'] = array();
 
         foreach ($bracelets as $bracelet) {
-            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
+            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' . ($bracelet->color == 1 ? 'Vermelho' : 'Verde');
         }
 
         $data['order_bracelets'] = OrderBracelet::where('id_order', '0')->get();
@@ -71,9 +71,10 @@ class OrdersController extends \BaseController {
             $order->order_number = Input::get('order_number');
             $order->id_user      = Input::get('id_user');
             $order->id_customer  = Input::get('id_customer');
+            $order->id_bracelet  = Input::get('id_bracelet');
             $id_bracelet         = Input::get('id_bracelet');
             $order->amount       = Input::get('amount');
-            $order->discount     = Input::get('discount');
+            $order->discount     = 0; //Input::get('discount');
             $order->status       = Input::get('status');
             $products            = Input::get('products');
 
@@ -157,12 +158,12 @@ class OrdersController extends \BaseController {
         $data['bracelets'] = array();
 
         foreach ($bracelets as $bracelet) {
-            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' .$bracelet->color;
+            $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' . ($bracelet->color == 1 ? 'Vermelho' : 'Verde' );
         }
 
         $data['order_bracelets'] = OrderBracelet::where('id_order', $id)->get();
 
-        $data['bracelet_id'] = $data['order_bracelets']->first()->id_bracelet;
+        // $data['bracelet_id'] = $data['order_bracelets']->first()->id_bracelet;
 
         return View::make('orders.edit')->with('data', $data);
     }
@@ -186,9 +187,10 @@ class OrdersController extends \BaseController {
             $order->order_number = Input::get('order_number');
             $order->id_user      = Input::get('id_user');
             $order->id_customer  = Input::get('id_customer');
+            $order->id_bracelet  = Input::get('id_bracelet');
             $id_bracelet         = Input::get('id_bracelet');
             $order->amount       = Input::get('amount');
-            $order->discount     = Input::get('discount');
+            $order->discount     = 0; // Input::get('discount');
             $order->status       = Input::get('status');
             $products            = Input::get('products');
 
@@ -208,6 +210,14 @@ class OrdersController extends \BaseController {
                 $order_bracelet->save();
 
                 $order_bracelet = null;
+            }
+
+            if ($order->status == 2) {
+                $customer_bracelet = CustomerBracelet::where('id_bracelet', $order->id_bracelet)->where('status', 1)->get()->first();
+
+                $customer_bracelet->status = 2;
+
+                $customer_bracelet->save();
             }
 
             DB::commit();

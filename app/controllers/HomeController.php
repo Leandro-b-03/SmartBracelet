@@ -28,7 +28,7 @@ class HomeController extends BaseController {
         foreach ($customers as $customer) {
             $customer_bracelet = $customer->customer_bracelet()->first();
 
-            if (!$customer_bracelet) {
+            if ($customer_bracelet->status != 1) {
                 $data['customers'][$customer->id] = $customer->name;
             }
         }
@@ -47,7 +47,7 @@ class HomeController extends BaseController {
 
         $data['order_bracelets'] = OrderBracelet::where('id_order', '0')->get();
 
-        $data['customer_bracelets'] = CustomerBracelet::all();
+        $data['customer_bracelets'] = CustomerBracelet::where('status', 1)->get();
 
         return View::make('home')->with('data', $data);
     }
@@ -63,20 +63,42 @@ class HomeController extends BaseController {
         // Inser the data on base.
         try
         {
-            DB::beginTransaction();
-            
-            $customer_bracelet = new CustomerBracelet;
+            $bracelet = CustomerBracelet::where('id_bracelet', Input::get('id_bracelet'))->where('status', 1)->get();
 
-            $customer_bracelet->id_customer   = Input::get('id_customer');
-            $customer_bracelet->id_bracelet   = Input::get('id_bracelet');
-            $customer_bracelet->status        = 1;
+            if (!$bracelet->count()) {
+                DB::beginTransaction();
+                
+                $customer_bracelet = new CustomerBracelet;
 
-            $customer_bracelet->save();
+                $customer_bracelet->id_customer   = Input::get('id_customer');
+                $customer_bracelet->id_bracelet   = Input::get('id_bracelet');
+                $customer_bracelet->status        = 1;
 
-            DB::commit();
+                $customer_bracelet->save();
 
-            // redirect
-            return Redirect::to('home')->with('flash_notice', 'Vinculo criado com sucesso!');
+                $order = new Order;
+
+                $today = date("Ymd");
+                $rand = strtoupper(substr(uniqid(sha1(time())),0,4));
+                $unique = $today . $rand;
+
+                $order->order_number = $unique;
+                $order->id_user      = Auth::user()->id;
+                $order->id_customer  = $customer_bracelet->id_customer;
+                $order->id_bracelet  = $customer_bracelet->id_bracelet;
+                $order->amount       = 0;
+                $order->discount     = 0;
+                $order->status       = 1;
+
+                $order->save();
+
+                DB::commit();
+
+                // redirect
+                return Redirect::to('home')->with('flash_notice', 'Vinculo criado com sucesso!');
+            } else {
+                return Redirect::to('home')->with('flash_error', 'Comanda já vinculada a outro cliente!');
+            }
         }
         catch (Exception $e)
         {

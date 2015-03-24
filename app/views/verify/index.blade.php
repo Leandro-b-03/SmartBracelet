@@ -13,15 +13,16 @@
     <h3 class="box-header">Pedidos</h3>
     <div class="box">
         <div class="body">
-            {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "verify_command")) }}
+            {{ Form::open(array("id" => "verify", "role" => "form", "class" => "form-horizontal", "url" => "verify_command", 'method' => 'get')) }}
             <div class="control-group">
                 <label for="status" class="control-label span4">Codigo da comanda:</label>
                 <div class="controls span8">
-                {{ Form::text('id_bracelet', "", array('id' => 'autocomplete')); }}
+                {{ Form::text('bracelet', "", array('id' => 'autocomplete')); }}
+                {{ Form::hidden('id_bracelet', "", array('id' => 'id_bracelet')) }}
                 {{ Form::submit('Pesquisar Comanda', array("class" => "btn btn-primary")) }}
                 </div>
             </div>
-            <p>Por favor, aproxime a comanda do leitor! Caso necessario informe o codigo da comanda e clique no botão "Pesquisar Comanda".
+            <p>Por favor, aproxime a comanda do leitor! Caso necessario informe o codigo da comanda e clique no botão "Pesquisar Comanda".</p>
             {{ Form::close() }}
         </div>
     </div>
@@ -39,9 +40,38 @@
             $('#autocomplete').autocomplete({
                 serviceUrl: '/autocomplete/comands',
                 onSelect: function (suggestion) {
-                    comand = suggestion.data;
+                    comand = suggestion.data.id;
+
+                    $('#id_bracelet').val(comand);
+                    $('#verify').attr('action', '{{ URL::to("verify_command") }}' + '/' + comand + '/edit');
                 }
             });
+
+            setInterval(ajaxCall, 1000);
+
+            function ajaxCall() {
+                $.ajax({
+                    url: "/general/getComand",
+                    method: "get",
+                    data: "id_user=" + {{ Auth::user()->id }},
+                    success: function(data) {
+                        if (data.error) {
+                            new PNotify({
+                                title: 'Erro',
+                                text: data.error,
+                                type: 'error',
+                                styling: 'fontawesome'
+                                });
+                        } else {
+                            comand = data.bracelet.id;
+        
+                            $('#autocomplete').val(data.bracelet.tag);
+                            $('#id_bracelet').val(comand);
+                            $('#verify').attr('action', '{{ URL::to("verify_command") }}' + '/' + comand + '/edit');
+                        }
+                    }
+                });
+            }
         });
     </script>
 

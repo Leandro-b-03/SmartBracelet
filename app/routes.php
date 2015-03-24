@@ -120,4 +120,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('autocomplete/products', 'AutocompleteController@products');
     Route::get('autocomplete/comands', 'AutocompleteController@comands');
     // End Autocomplete
+
+    // Start General
+    Route::get('general/getComand', 'GeneralController@getComand');
+    // End General
 });
