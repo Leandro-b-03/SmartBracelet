@@ -7042,3 +7042,6 @@ label.item.has-error {
   padding: 5px; }
   .loading-container .loading .icon:before {
     font-size: 50px; }
+
+.descricao .item {
+  margin-bottom: 15px; }

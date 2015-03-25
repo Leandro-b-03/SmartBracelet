@@ -1,6 +1,5 @@
-app.controller('home', function($scope,$state,$cordovaNfc, $cordovaNfcUtil,$ionicPopup,bracelet) {
+app.controller('home', function($scope,$state,$cordovaNfc, $cordovaNfcUtil,$ionicHistory,$ionicPopup,bracelet) {
 	$scope.inputs = {cpf: ''};
-	
   //função para validar e redirecionar para pagina de preço.
   	$scope.getComandaByCpf = function (cpf){
   		var labelCPF = document.getElementById('input-cpf');
@@ -59,7 +58,7 @@ app.controller('total', function($scope,$state,$ionicHistory,$ionicLoading,$ioni
 
   Total.getTotal($state.params.param).success(function(data){
     $ionicLoading.hide();
-        if (!data){
+        if (data.status == 'false'){
             $state.go('home');
             $ionicPopup.alert({
                title: 'Pulseira',
@@ -76,8 +75,6 @@ app.controller('description', function($scope,$state,$ionicHistory,$ionicLoading
   $ionicHistory.nextViewOptions({
       disableBack: false
   });
-
-  $scope.data = Description;
 
   $scope.loadingIndicator = $ionicLoading.show({
       content: 'Loading Data',
@@ -97,7 +94,7 @@ app.controller('description', function($scope,$state,$ionicHistory,$ionicLoading
              });
 
         } else {
-          $scope.data = data;
+          $scope.produtos = data;
         }
   });
 });
