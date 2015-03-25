@@ -26,9 +26,13 @@ class HomeController extends BaseController {
         $data['customers_total'] = $customers->count();
 
         foreach ($customers as $customer) {
-            if ($customer_bracelet = $customer->customer_bracelet()->first()->status != 1) {
-                $data['customers'][$customer->id] = $customer->name;
-            }
+        	if (count($customer->customer_bracelet())) {
+	            $customer_bracelet = $customer->customer_bracelet()->first();
+
+	            if ($customer_bracelet->status != 1) {
+	                $data['customers'][$customer->id] = $customer->name;
+	            }
+	        }
         }
 
         $bracelets = Bracelet::all();
