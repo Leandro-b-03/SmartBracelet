@@ -42,8 +42,8 @@ class HomeController extends BaseController {
         $data['bracelets_total'] = $bracelets->count();
 
         foreach ($bracelets as $bracelet) {
-            $customer_bracelet = $bracelet->customer_bracelet()->first();
-            if (!$customer_bracelet)
+            $customer_bracelet = CustomerBracelet::where('id_bracelet', $bracelet->id)->where('status', 1)->get();
+            if (!$customer_bracelet->count())
                 $data['bracelets'][$bracelet->id] = $bracelet->tag . ' - ' . ($bracelet->color == 1 ? 'Vermelho' : 'Verde');
         }
 
