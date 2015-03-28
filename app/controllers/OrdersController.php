@@ -104,10 +104,8 @@ class OrdersController extends \BaseController {
         catch (Exception $e)
         {
             DB::rollback();
-
-            d($e);
             
-            // return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao criar o pedido.')->withInput();
+            return Redirect::route('orders.create')->with('flash_error', 'Ocorreu um erro ao criar o pedido.')->withInput();
         }
     }
 
