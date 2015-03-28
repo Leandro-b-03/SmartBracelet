@@ -144,6 +144,9 @@ class GeneralController extends \BaseController {
 					$user_bracelet->save();
 				} else {
 					$jsonSerialize['error'] = 'Comanda não cadastrada.';
+
+					$user_bracelet->status = 1;
+					$user_bracelet->save();
 				}
 
 				return Response::json($jsonSerialize);
