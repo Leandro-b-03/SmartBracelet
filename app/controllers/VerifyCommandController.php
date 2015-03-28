@@ -225,8 +225,6 @@ class VerifyCommandController extends \BaseController {
         catch (Exception $e)
         {
             DB::rollback();
-
-            die(d($e));
             
             return Redirect::to('verify_command/' . $order->id_bracelet . '/edit')->with('flash_error', 'Ocorreu um erro ao alterar o pedido.')->withInput();
         }
