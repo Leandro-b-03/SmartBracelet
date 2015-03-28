@@ -199,7 +199,7 @@ class VerifyCommandController extends \BaseController {
 
                     $order_bracelet->id_order    = $order->id;
                     $order_bracelet->id_product  = $key;
-                    $order_bracelet->id_bracelet = $id_bracelet;
+                    $order_bracelet->id_bracelet = $order->id_bracelet;
                     $order_bracelet->quantity    = $values['quantity'][0];
                     $order_bracelet->price       = $values['price'][0];
 
