@@ -23,11 +23,11 @@
 
                 <div class="box">
                 {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "home")) }}
-                    <!-- /.control-group -->
+                    <!-- control group -->
                     <div class="control-group">
                         <label for="status" class="control-label span4">Cliente</label>
                         <div class="controls span8">
-                        {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : "")); }}
+                            <input id="cpf-customer" name="cpf-customer" type="text" placeholder="CPF do cliente" autocomplete="off">
                         </div>
                     </div>
                     <!-- /.control-group -->
@@ -136,6 +136,7 @@
 @section('scripts')
     {{ HTML::script('library/javascripts/jQuery-Autocomplete/dist/jquery.autocomplete.js'); }}
 
+    
     <script>
         $(function($){
             var comand = null;
@@ -144,13 +145,19 @@
                 serviceUrl: '/autocomplete/comands',
                 onSelect: function (suggestion) {
                     comand = suggestion.data.id;
-
                     $('#id_bracelet').val(comand);
+                }
+            });
+
+            $('#cpf-customer').autocomplete({
+                serviceUrl: '/autocomplete/getCustomerByCpf',
+                onSelect: function (suggestion) {
+                    alert('You selected: ');
                 }
             });
         });
 
-        setInterval(ajaxCall, 1000);
+        setInterval(ajaxCall, 100000);
 
         function ajaxCall() {
             $.ajax({
@@ -174,6 +181,7 @@
                 }
             });
         }
+
     </script>
 
     @if (Session::has('flash_error'))
