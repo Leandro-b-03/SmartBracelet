@@ -69,10 +69,10 @@ class HomeController extends BaseController {
 
             if (!$bracelet->count()) {
                 DB::beginTransaction();
+                
+                $customer = CustomerBracelet::where('id_customer', Input::get('id_customer'))->where('status', 1)->get();
 
-                $customer = Customer::findOrFail(Input::get('id_customer'));
-
-                if($customer) {                
+                if($customer->count()) {                
                     $customer_bracelet = new CustomerBracelet;
 
                     $customer_bracelet->id_customer   = Input::get('id_customer');
