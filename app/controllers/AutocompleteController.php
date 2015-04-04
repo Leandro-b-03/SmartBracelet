@@ -42,9 +42,14 @@ class AutocompleteController extends \BaseController {
         //cpf vindo da funcção ajax de vincular cliente
         $cpf = Input::get('query');
         //function para pegar todos clintes que contenha os numero
-        $Customer = Customer::where('cpf','like', "%$cpf%")->get();
+         $Customers = Customer::where('cpf','like', "%$cpf%")->get();
+         foreach ($Customers as $Customer) {
 
-        return Response::json($Customer);
+            $jsonSerialize['suggestions'][]  = array('value' => $Customer->cpf, 'data' => $Customer);
+
+        }
+
+        return Response::json($jsonSerialize);
 
     }
 }

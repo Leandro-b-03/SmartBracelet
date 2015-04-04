@@ -27,7 +27,8 @@
                     <div class="control-group">
                         <label for="status" class="control-label span4">Cliente</label>
                         <div class="controls span8">
-                            <input id="cpf-customer" name="cpf-customer" type="text" placeholder="CPF do cliente" autocomplete="off">
+                            {{Form::text('cpf-customer', "", array('id' => 'cpf-customer', 'placeholder' => 'CPF do cliente'))}}
+                            {{Form::hidden('id_customer' ,"", array('id' => 'id_customer')}}
                         </div>
                     </div>
                     <!-- /.control-group -->
@@ -152,12 +153,12 @@
             $('#cpf-customer').autocomplete({
                 serviceUrl: '/autocomplete/getCustomerByCpf',
                 onSelect: function (suggestion) {
-                    alert('You selected: ');
+                    $('#id_customer').val(suggestion.data.id);
                 }
             });
         });
 
-        setInterval(ajaxCall, 100000);
+        setInterval(ajaxCall, 1000);
 
         function ajaxCall() {
             $.ajax({
