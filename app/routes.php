@@ -119,9 +119,13 @@ Route::group(array('before' => 'auth'), function () {
     // Start Autocomplete
     Route::get('autocomplete/products', 'AutocompleteController@products');
     Route::get('autocomplete/comands', 'AutocompleteController@comands');
+    Route::get('autocomplete/getCustomerByCpf', 'AutocompleteController@getCustomerByCpf');
+    
     // End Autocomplete
 
     // Start General
     Route::get('general/getComand', 'GeneralController@getComand');
     // End General
+
+
 });

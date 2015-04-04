@@ -23,11 +23,12 @@
 
                 <div class="box">
                 {{ Form::open(array("role" => "form", "class" => "form-horizontal", "url" => "home")) }}
-                    <!-- /.control-group -->
+                    <!-- control group -->
                     <div class="control-group">
                         <label for="status" class="control-label span4">Cliente</label>
                         <div class="controls span8">
-                        {{ Form::select('id_customer', $data['customers'], (isset($data['order']) ? $data['order']->customer->id : "")); }}
+                            {{Form::text('cpf-customer', "", array('id' => 'cpf-customer', 'placeholder' => 'CPF do cliente'))}}
+                            {{Form::hidden('id_customer' ,"", array('id' => 'id_customer')}}
                         </div>
                     </div>
                     <!-- /.control-group -->
@@ -136,6 +137,7 @@
 @section('scripts')
     {{ HTML::script('library/javascripts/jQuery-Autocomplete/dist/jquery.autocomplete.js'); }}
 
+    
     <script>
         $(function($){
             var comand = null;
@@ -144,8 +146,14 @@
                 serviceUrl: '/autocomplete/comands',
                 onSelect: function (suggestion) {
                     comand = suggestion.data.id;
-
                     $('#id_bracelet').val(comand);
+                }
+            });
+
+            $('#cpf-customer').autocomplete({
+                serviceUrl: '/autocomplete/getCustomerByCpf',
+                onSelect: function (suggestion) {
+                    $('#id_customer').val(suggestion.data.id);
                 }
             });
         });
@@ -174,6 +182,7 @@
                 }
             });
         }
+
     </script>
 
     @if (Session::has('flash_error'))

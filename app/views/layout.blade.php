@@ -255,11 +255,12 @@
                 <li class="{{ Request::is('commands') ? 'active' : '' }}">
                     <a href="{{ URL::to('commands') }}"><span class="fa fa-circle-o-notch"></span>Comandas</a>
                 </li>
-                <li class="{{ Request::is('orders') ? 'active' : '' }}">
+                <!-- pagina de edição dos pedidos -->
+               <!--  <li class="{{ Request::is('orders') ? 'active' : '' }}">
                     <a href="{{ URL::to('orders') }}"><span class="fa fa-edit"></span>Pedidos</a>
-                </li>
+                </li> -->
                 <li class="{{ Request::is('verify_command') ? 'active' : '' }}">
-                    <a href="{{ URL::to('verify_command') }}"><span class="fa fa-search-plus "></span>Verificar</a>
+                    <a href="{{ URL::to('verify_command') }}"><span class="fa fa-edit"></span>Pedidos</a>
                 </li>
             </ul>
         </div>
