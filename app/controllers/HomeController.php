@@ -69,32 +69,38 @@ class HomeController extends BaseController {
 
             if (!$bracelet->count()) {
                 DB::beginTransaction();
-                
-                $customer_bracelet = new CustomerBracelet;
 
-                $customer_bracelet->id_customer   = Input::get('id_customer');
-                $customer_bracelet->id_bracelet   = Input::get('id_bracelet');
-                $customer_bracelet->status        = 1;
+                $customer = Customer::findOrFail(Input::get('id_customer'));
 
-                $customer_bracelet->save();
+                if($customer) {                
+                    $customer_bracelet = new CustomerBracelet;
 
-                $order = new Order;
+                    $customer_bracelet->id_customer   = Input::get('id_customer');
+                    $customer_bracelet->id_bracelet   = Input::get('id_bracelet');
+                    $customer_bracelet->status        = 1;
 
-                $today = date("Ymd");
-                $rand = strtoupper(substr(uniqid(sha1(time())),0,4));
-                $unique = $today . $rand;
+                    $customer_bracelet->save();
 
-                $order->order_number = $unique;
-                $order->id_user      = Auth::user()->id;
-                $order->id_customer  = $customer_bracelet->id_customer;
-                $order->id_bracelet  = $customer_bracelet->id_bracelet;
-                $order->amount       = 0;
-                $order->discount     = 0;
-                $order->status       = 1;
+                    $order = new Order;
 
-                $order->save();
+                    $today = date("Ymd");
+                    $rand = strtoupper(substr(uniqid(sha1(time())),0,4));
+                    $unique = $today . $rand;
 
-                DB::commit();
+                    $order->order_number = $unique;
+                    $order->id_user      = Auth::user()->id;
+                    $order->id_customer  = $customer_bracelet->id_customer;
+                    $order->id_bracelet  = $customer_bracelet->id_bracelet;
+                    $order->amount       = 0;
+                    $order->discount     = 0;
+                    $order->status       = 1;
+
+                    $order->save();
+
+                    DB::commit();
+                } else {
+                    return Redirect::to('home')->with('flash_error', 'Cliente não existente!');
+                }
 
                 // redirect
                 return Redirect::to('home')->with('flash_notice', 'Vinculo criado com sucesso!');
