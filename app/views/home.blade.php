@@ -28,7 +28,7 @@
                         <label for="status" class="control-label span4">Cliente</label>
                         <div class="controls span8">
                             {{Form::text('cpf-customer', "", array('id' => 'cpf-customer', 'placeholder' => 'CPF do cliente'))}}
-                            {{Form::hidden('id_customer' ,"", array('id' => 'id_customer')}}
+                            {{Form::hidden('id_customer' ,"", array('id' => 'id_customer'))}}
                         </div>
                     </div>
                     <!-- /.control-group -->
