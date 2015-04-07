@@ -28,8 +28,10 @@
             </ion-nav-back-button>
         </ion-nav-bar>
         <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+        <!--Tela 1 Inicial Pega tag NFC-->
         <script type="text/ng-template" id="main.html">
-            <ion-view title="Consulta de comanda">
+            <ion-view title="Consulta de Comanda">
                 <ion-content>
                     <div class="item item-image item-logo">
                         <img src="img/logo.png">
@@ -51,7 +53,9 @@
                 </ion-content>
             </ion-view>
         </script>
+        <!-- FIM Tela 1 inicial  -->
 
+        <!-- Tela 2 retorna valor da comanda do cliente -->
         <script type="text/ng-template" id="total.html">
           <ion-view title="Total da comanda">
             <ion-content>
@@ -62,32 +66,30 @@
                   <div class="item item-text-wrap">
                     <h1>{{data.amount}}</h1>
                     <button class="button button-block button-balanced" ng-click="getComandaCompleta(data.id_order)">
-                        Veja completo
+                        Extrato de Comanda
                     </button>
                   </div>
                 </div>
             </ion-content>
           </ion-view>
         </script>
+         <!-- FIM Tela 2 retorna valor da comanda do cliente -->
 
         <script type="text/ng-template" id="description.html">
-          <ion-view title="Descrição da comanda">
+          <ion-view title="Extrato de Comanda">
             <ion-content>
                     <div class="descricao list card">
                         <div class="item row" ng-repeat="produto in produtos">
                             <div class="col col-50">{{produto.name}}</div>
-                            <div class="col-20">{{produto.quantity}}</div>
+                            <div class="col-20">{{produto.quantity}}X</div>
                             <div class="col-33">{{produto.price}}</div>
                         </div>
-                    </div>
-                    <a href="#home" class="button button-block button-balanced" >
-                        Voltar
-                    </a>
+                </a>
             </ion-content>
           </ion-view>
         </script>
         <ion-footer-bar align-title="left" class="bar-positive">
-          <h1 class="title">App para consulta de comandas</h1>
+          <h1 class="title">FATEC Carapicuiba - SI</h1>
         </ion-footer-bar>
         <script>
             var App = App || {};
