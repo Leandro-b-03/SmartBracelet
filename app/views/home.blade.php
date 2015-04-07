@@ -175,9 +175,14 @@
                             });
                     } else {
                         comand = data.bracelet.id;
-    
-                        $('#autocomplete').val(data.bracelet.tag);
-                        $('#id_bracelet').val(comand);
+                        if ($('#autocomplete').is(":focus")){
+                            $('#autocomplete').val(data.bracelet.tag);
+                            $('#id_bracelet').val(comand);
+                        }
+
+                        if ($('input[type="search"]').is(":focus")){
+                            $('input[type="search"]').val(data.bracelet.tag);
+                        }
                     }
                 }
             });
